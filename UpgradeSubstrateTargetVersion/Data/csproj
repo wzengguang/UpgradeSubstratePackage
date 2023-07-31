@@ -1,0 +1,58 @@
+WHEN:\s*\<Reference\s+Include="\$\(PkgMicrosoft_M365_Core_EventLog\)\\lib\\net462\\Microsoft\.M365.Core\.EventLog\.dll"\s*\/\>
+WHENNOT:\<Reference .*System\.Diagnostics\.EventLog\.dll
+PATH:.*
+VALUES:
+<Reference Include="$(PkgSystem_Diagnostics_EventLog)\lib\net461\System.Diagnostics.EventLog.dll" />
+<Reference Include="$(PkgMicrosoft_M365_Core_Portable_EventLog)\lib\netstandard2.0\Microsoft.M365.Core.Portable.EventLog.dll" />
+
+WHEN:\s*\<Reference\s+Include="Microsoft\.M365\.Core\.EventLog"\s*\>
+WHENNOT:\<Reference .*System\.Diagnostics\.EventLog\.dll
+PATH:.*
+VALUES:
+<Reference Include="$(PkgSystem_Diagnostics_EventLog)\lib\net461\System.Diagnostics.EventLog.dll" />
+
+WHEN:\s*\<Reference\s+Include="Microsoft\.M365\.Core\.EventLog"\s*\>
+WHENNOT:\<Reference\s+Include=".*Microsoft\.M365\.Core\.Portable\.EventLog\.dll
+PATH:.*
+VALUES:
+<Reference Include="$(PkgMicrosoft_M365_Core_Portable_EventLog)\lib\netstandard2.0\Microsoft.M365.Core.Portable.EventLog.dll" />
+
+WHEN:\s*\<Content\s+Include=".*Microsoft\.M365\.Core\.EventLog\.dll"\s*\>
+WHENNOT:\<Content\s+Include=".*System\.Diagnostics\.EventLog\.dll"\s*\>
+WHEREOFFSET:0
+PATH:.*
+VALUES:
+<Content Include="$(PkgSystem_Diagnostics_EventLog)\lib\net461\System.Diagnostics.EventLog.dll">
+  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+</Content>
+<Content Include="$(PkgMicrosoft_M365_Core_Portable_EventLog)\lib\netstandard2.0\Microsoft.M365.Core.Portable.EventLog.dll">
+  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+</Content>
+
+WHEN:\s*\<PackageReference\s+Include="Microsoft\.M365\.Core\.EventLog"\s*\/\>
+WHENNOT:\<PackageReference\s+Include="System\.Diagnostics\.EventLog"\s*
+WHEREOFFSET:0
+PATH:.*
+VALUES:
+<PackageReference Include="System.Diagnostics.EventLog" />
+
+WHEN:\s*\<PackageReference\s+Include="Microsoft\.M365\.Core\.EventLog"\s*\/\>
+WHENNOT:\<PackageReference\s+Include="Microsoft\.M365\.Core\.Portable\.EventLog\s*
+WHEREOFFSET:0
+PATH:.*
+VALUES:
+<PackageReference Include="Microsoft.M365.Core.Portable.EventLog" />
+
+WHEN:\s*\<PackageReference\s+Include="Microsoft\.M365\.Core\.EventLog"\s+GeneratePathProperty="true" \/\>
+WHENNOT:\<PackageReference\s+Include="Microsoft\.M365\.Core\.Portable\.EventLog\s+GeneratePathProperty="true"
+WHEREOFFSET:0
+PATH:.*
+VALUES:
+<PackageReference Include="Microsoft.M365.Core.Portable.EventLog" GeneratePathProperty="true" />
+
+WHEN:\s*\<BinPlaceNetCore\s+Include=".*Microsoft\.M365\.Core\.EventLog\.dll"\s+\/\>
+WHENNOT:\<BinPlaceNetCore\s+Include=".*Microsoft\.M365\.Core\.Portable\.EventLog\.dll
+WHEREOFFSET:0
+PATH:.*
+VALUES:
+<BinPlaceNetCore Include="$(PkgMicrosoft_M365_Core_Portable_EventLog)\lib\netstandard2.0\Microsoft.M365.Core.Portable.EventLog.dll" />
