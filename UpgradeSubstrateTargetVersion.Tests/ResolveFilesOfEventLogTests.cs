@@ -125,6 +125,9 @@ namespace UpgradeSubstrateTargetVersion.Tests
             resolve.ResolvePackagespropsFile();
             resolve.ResolveBuildCorextConfig();
             resolve.ResolveCorextConfig();
+            resolve.ResolveVcxprojFile();
+            resolve.ResolveCsFile();
+            resolve.ResolveCsvFile();
             await resolve.WaitDone();
         }
     }

@@ -56,6 +56,65 @@ namespace UpgradeSubstrateTargetVersion
             return true;
         }
 
+        public bool IsMatchAny(params string[] whenMatchs)
+        {
+            var match = FirstMatch(whenMatchs);
+            return match.Item1 == null ? false : true;
+        }
+
+        public (string, Match) FirstMatch(params string[] whenMatchs)
+        {
+            foreach (var item in whenMatchs)
+            {
+                var match = Regex.Match(Content, item, RegexOptions.IgnoreCase);
+
+                if (match.Success)
+                {
+                    return (item, match);
+                }
+            }
+            return (null, null);
+        }
+
+        public void Match(MatchParam matchParam, bool whenAll = true, bool matchLine = true)
+        {
+            if (matchParam.Path.Count != 0 && !matchParam.Path.Exists(a => Path.Contains(a, StringComparison.OrdinalIgnoreCase)))
+            {
+                return;
+            }
+
+            if (whenAll && !IsMatchAll(matchParam.When.ToArray()))
+            {
+                return;
+            }
+
+            if (!whenAll && !IsMatchAny(matchParam.When.ToArray()))
+            {
+                return;
+            }
+
+            var match = FirstMatch(matchParam.When.ToArray());
+            string whereStr = string.IsNullOrEmpty(matchParam.Where) ? match.Item1 : matchParam.Where;
+            whereStr = (matchLine ? @"\s*" : "") + whereStr;
+            Match where = Regex.Match(Content, whereStr, RegexOptions.IgnoreCase);
+            if (where.Success)
+            {
+                var vString = FormateSpaces(matchParam.value, where);
+
+                if (Regex.IsMatch(Content, vString.ToRegexString(), RegexOptions.IgnoreCase))
+                {
+                    return;
+                }
+
+                string newContent = Regex.Replace(Content, whereStr, m => vString + m.Value, RegexOptions.IgnoreCase);
+                if (newContent.Contains(vString))
+                {
+                    this.ModifiedCount++;
+                    Content = newContent;
+                }
+            }
+        }
+
         public void InsertWhenNot(string whenNotMatch, IEnumerable<string> anyWhereMatchs, IList<string> values)
         {
             var match = Regex.Match(Content, whenNotMatch, RegexOptions.IgnoreCase);
@@ -67,7 +126,7 @@ namespace UpgradeSubstrateTargetVersion
                     Match where = Regex.Match(Content, item, RegexOptions.IgnoreCase);
                     if (where.Success)
                     {
-                        var vString = InsertSpaces(values, where);
+                        var vString = FormateSpaces(values, where);
                         string newContent = Regex.Replace(Content, item, m => vString + m.Value, RegexOptions.IgnoreCase);
                         Content = UpdateContent(newContent, vString, whenNotMatch);
                         return;
@@ -85,7 +144,7 @@ namespace UpgradeSubstrateTargetVersion
                 var where = Regex.Match(Content, whereMatch, RegexOptions.IgnoreCase);
                 if (where.Success)
                 {
-                    var vString = InsertSpaces(values, where);
+                    var vString = FormateSpaces(values, where);
                     string newContent = Regex.Replace(Content, whereMatch, m => vString + m.Value, RegexOptions.IgnoreCase);
                     Content = UpdateContent(newContent, vString, whenNotMatch);
                 }
@@ -99,7 +158,7 @@ namespace UpgradeSubstrateTargetVersion
 
             if (!matchNot.Success && matchWhen.Success)
             {
-                var vString = InsertSpaces(values, matchWhen);
+                var vString = FormateSpaces(values, matchWhen);
                 string newContent = Regex.Replace(Content, whenMatch, m => vString + m.Value, RegexOptions.IgnoreCase);
                 Content = UpdateContent(newContent, vString, whenNotMatch);
             }
@@ -166,7 +225,7 @@ namespace UpgradeSubstrateTargetVersion
                 Match matchWhen = Regex.Match(group, whenMatch, RegexOptions.IgnoreCase);
                 if (matchWhen.Success && !Regex.IsMatch(group, whenNot, RegexOptions.IgnoreCase))
                 {
-                    var vString = InsertSpaces(values, matchWhen);
+                    var vString = FormateSpaces(values, matchWhen);
                     group = Regex.Replace(group, whereMatch, m => vString + m.Value, RegexOptions.IgnoreCase);
                     groups[i] = UpdateContent(group, vString, whenNot);
                 }
@@ -175,7 +234,7 @@ namespace UpgradeSubstrateTargetVersion
             Content = string.Join("<ItemGroup", groups);
         }
 
-        private static string InsertSpaces(IList<string> values, Match matchWhen)
+        private static string FormateSpaces(IList<string> values, Match matchWhen)
         {
             var copyedValues = new List<string>(values);
             string spaces = new string(matchWhen.Value.Replace(Environment.NewLine, "").TakeWhile(c => char.IsWhiteSpace(c)).ToArray());

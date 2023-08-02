@@ -66,5 +66,13 @@ namespace UpgradeSubstrateTargetVersion.Tests
             fileUtils.InsertWhenAndNotByGroup(matches);
             await fileUtils.SaveResult();
         }
+
+        [TestMethod]
+        public async Task RegexUtil()
+        {
+            string str = " $(pkg)micro.365";
+
+            string s = str.ToRegexString();
+        }
     }
 }

@@ -23,17 +23,6 @@ namespace UpgradeSubstrateTargetVersion
 
         public string Skip { get; private set; }
 
-        public static FileMatchResult CreateFileMatchResult(FileMatchLines fileUtil)
-        {
-            return fileUtil.MatchedCount > 0 ? new FileMatchResult
-            {
-                Path = fileUtil.Path,
-                MatchedCount = fileUtil.MatchedCount,
-                ModifiedCount = fileUtil.ThisModifiedCount,
-                TotalModifiedCount = fileUtil.NeedModifiedCount
-            } : null;
-        }
-
         public static FileMatchResult CreateFileMatchResult(FileMatch fileUtil)
         {
             int eventLogCount = Regex.Matches(fileUtil.Content, AppSettings.EventLog, RegexOptions.IgnoreCase).Count;

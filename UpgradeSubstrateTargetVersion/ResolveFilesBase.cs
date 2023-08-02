@@ -70,5 +70,11 @@ namespace UpgradeSubstrateTargetVersion
             var results = tasks.Where(a => a.Result != null).Select(a => a.Result);
             LogUtil.RecordResult(results);
         }
+
+
+        protected string Pattern(string pattern)
+        {
+            return pattern.ToRegexString();
+        }
     }
 }

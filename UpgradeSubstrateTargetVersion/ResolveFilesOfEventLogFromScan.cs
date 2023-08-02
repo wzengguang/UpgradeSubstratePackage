@@ -48,49 +48,67 @@ namespace UpgradeSubstrateTargetVersion
 
         public void ResolveWxsFiles()
         {
+            List<string> skips = new List<string>
+            {
+            };
+
             ResolveFilesTask(scan.WxsFiles, async (path) =>
             {
+                FileMatch fileMatch = await FileMatch.ReadFileAsync(path);
+                if (skips.Exists(a => path.Contains(a, StringComparison.OrdinalIgnoreCase)))
+                {
+                    fileMatch.SkipFile = "skip";
+                    return await fileMatch.SaveResult();
+                }
+
+                var matchparams = MatchParam.Load("match/wxs.xml");
+                foreach (var item in matchparams)
+                {
+                    fileMatch.Match(item);
+                }
+
+                //string when = Pattern(@"<File Vital=""yes"" Source=""$(var.PkgMicrosoft_M365_Core_EventLog)\lib\net462\Microsoft.M365.Core.EventLog.dll"" />");
+                //string whenNot = @"Microsoft\.M365\.Core\.Portable\.EventLog\.dll";
+                //string fileName = Path.GetFileNameWithoutExtension(path).Replace('.', '_');
+                //string[] inserts =
+                //    {
+                //    $"<File Id=\"{fileName}_System_Diagnostics_EventLog\" Source=\"$(var.PkgSystem_Diagnostics_EventLog)\\lib\\net461\\System.Diagnostics.EventLog.dll\" />",
+                //    $"<File Id=\"{fileName}_Microsoft_M365_Core_Portable_EventLog\" Source=\"$(var.PkgMicrosoft_M365_Core_Portable_EventLog)\\lib\\netstandard2.0\\Microsoft.M365.Core.Portable.EventLog.dll\" />"
+                //    };
+
                 if (path.Contains("dev\\Hygiene\\MSIs\\WstSetup\\msi\\ManagedClient.wxs", StringComparison.OrdinalIgnoreCase))
                 {
-                    FileMatch fileMatch = await FileMatch.ReadFileAsync(path);
-                    string when = @"\s*\<Component Id=""Microsoft\.M365\.Core\.EventLog\.dll""";
-                    string whenNot = @"Microsoft\.M365\.Core\.Portable\.EventLog\.dll";
-                    string[] inserts =
-                    {
-                        "",
-                        @"<Component Id=""System.Diagnostics.EventLog.dll"" Guid=""CDBD702E-71F2-4A77-BFF1-240A002F25B2"" Directory=""INSTALLDIR"">",
-                        @"  <File Id=""System.Diagnostics.EventLog.dll"" Name=""System.Diagnostics.EventLog.dll"" KeyPath=""yes"" Compressed=""yes"" Source=""$(var.PkgSystem_Diagnostics_EventLog)\lib\net461\System.Diagnostics.EventLog.dll"" />",
-                        @"</Component>",
-                        "",
-                        @"<Component Id=""Microsoft.M365.Core.Portable.EventLog.dll"" Guid=""D3E09636-6C39-4C9C-ACE8-F3A813BF9C65"" Directory=""INSTALLDIR"">",
-                        @"  <File Id=""Microsoft.M365.Core.Portable.EventLog.dll"" Name=""Microsoft.M365.Core.Portable.EventLog.dll"" KeyPath=""yes"" Compressed=""yes""  Source=""$(var.PkgMicrosoft_M365_Core_Portable_EventLog)\lib\netstandard2.0\Microsoft.M365.Core.Portable.EventLog.dll"" />",
-                        @"</Component>"
-                    };
+                    //when = @"\s*\<Component Id=""Microsoft\.M365\.Core\.EventLog\.dll""";
+                    //whenNot = @"Microsoft\.M365\.Core\.Portable\.EventLog\.dll";
+                    //inserts =
+                    //{
+                    //    "",
+                    //    @"<Component Id=""System.Diagnostics.EventLog.dll"" Guid=""CDBD702E-71F2-4A77-BFF1-240A002F25B2"" Directory=""INSTALLDIR"">",
+                    //    @"  <File Id=""System.Diagnostics.EventLog.dll"" Name=""System.Diagnostics.EventLog.dll"" KeyPath=""yes"" Compressed=""yes"" Source=""$(var.PkgSystem_Diagnostics_EventLog)\lib\net461\System.Diagnostics.EventLog.dll"" />",
+                    //    @"</Component>",
+                    //    "",
+                    //    @"<Component Id=""Microsoft.M365.Core.Portable.EventLog.dll"" Guid=""D3E09636-6C39-4C9C-ACE8-F3A813BF9C65"" Directory=""INSTALLDIR"">",
+                    //    @"  <File Id=""Microsoft.M365.Core.Portable.EventLog.dll"" Name=""Microsoft.M365.Core.Portable.EventLog.dll"" KeyPath=""yes"" Compressed=""yes""  Source=""$(var.PkgMicrosoft_M365_Core_Portable_EventLog)\lib\netstandard2.0\Microsoft.M365.Core.Portable.EventLog.dll"" />",
+                    //    @"</Component>"
+                    //};
 
-                    fileMatch.InsertWhenAndNot(whenNot, when, inserts);
-                    return await fileMatch.SaveResult();
+                    //fileMatch.InsertWhenAndNot(whenNot, when, inserts);
                 }
                 else
                 {
-                    if (path.Contains("\\dev\\common\\MSIs\\Exchange_Test\\Dev_Common_Productbinaries.wxs", StringComparison.OrdinalIgnoreCase))
-                    {
-                        return null;
-                    }
+                    //string fileName = Path.GetFileNameWithoutExtension(path).Replace('.', '_');
 
-                    FileMatch fileUtils = await FileMatch.ReadFileAsync(path, false);
-
-                    string fileName = Path.GetFileNameWithoutExtension(path).Replace('.', '_');
-
-                    string when = @"\s*\<File Id=""\w+"" Source=""\$\(var\.PkgMicrosoft_M365_Core_EventLog\)\\lib\\";
-                    string whenNot = "var\\.PkgSystem_Diagnostics_EventLog";
-                    string[] inserts =
-                    {
-                    $"<File Id=\"{fileName}_System_Diagnostics_EventLog\" Source=\"$(var.PkgSystem_Diagnostics_EventLog)\\lib\\net461\\System.Diagnostics.EventLog.dll\" />",
-                    $"<File Id=\"{fileName}_Microsoft_M365_Core_Portable_EventLog\" Source=\"$(var.PkgMicrosoft_M365_Core_Portable_EventLog)\\lib\\netstandard2.0\\Microsoft.M365.Core.Portable.EventLog.dll\" />"
-                    };
-                    fileUtils.InsertWhenAndNot(whenNot, when, inserts);
-                    return await fileUtils.SaveResult();
+                    //string when = @"\s*\<File Id=""\w+"" Source=""\$\(var\.PkgMicrosoft_M365_Core_EventLog\)\\lib\\";
+                    //string whenNot = "var\\.PkgSystem_Diagnostics_EventLog";
+                    //string[] inserts =
+                    //{
+                    //$"<File Id=\"{fileName}_System_Diagnostics_EventLog\" Source=\"$(var.PkgSystem_Diagnostics_EventLog)\\lib\\net461\\System.Diagnostics.EventLog.dll\" />",
+                    //$"<File Id=\"{fileName}_Microsoft_M365_Core_Portable_EventLog\" Source=\"$(var.PkgMicrosoft_M365_Core_Portable_EventLog)\\lib\\netstandard2.0\\Microsoft.M365.Core.Portable.EventLog.dll\" />"
+                    //};
+                    //fileMatch.InsertWhenAndNot(whenNot, when, inserts);
                 }
+
+                return await fileMatch.SaveResult();
             });
         }
 
@@ -200,6 +218,10 @@ namespace UpgradeSubstrateTargetVersion
             List<MatchUtil> matches = MatchUtil.GetMatchs("Data/csproj");
             List<string> exclude = new() {
                 "Dev\\Clients\\src\\common",
+                "dev\\services\\src\\EwsSerializersGeneratorPostProcessing",
+                "dev\\common\\src\\BinPlaceForPackages\\BinPlaceForPackages",
+                "dev\\admin\\src\\Reports\\Server\\Extensions",
+                "dev\\admin\\src\\ecp\\ControlPanel",
                 "Broker\\Service",
                 "dev\\admin\\src\\ReportingWebService\\Service",
                 "Dev\\Cafe\\src\\FootPrint",
@@ -263,10 +285,6 @@ namespace UpgradeSubstrateTargetVersion
                 "test\\infoworker\\src\\Shared\\Components\\ELC",
                 "test\\infoworker\\src\\NonBVT\\OOF",
                 "test\\infoworker\\src\\NonBVT\\Availability",
-                "dev\\services\\src\\EwsSerializersGeneratorPostProcessing",
-                "dev\\common\\src\\BinPlaceForPackages\\BinPlaceForPackages",
-                "dev\\admin\\src\\Reports\\Server\\Extensions",
-                "dev\\admin\\src\\ecp\\ControlPanel",
                 "sources\\Test\\Transport\\src\\smtp\\SmtpBlobs",
                 "sources\\Dev\\Data\\src\\dsapi\\Api",
                 "sources\\Test\\Management\\src\\Management\\ProvisioningSOPsTests"};

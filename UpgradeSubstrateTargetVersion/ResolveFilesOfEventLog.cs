@@ -21,8 +21,8 @@ namespace UpgradeSubstrateTargetVersion
             resolve.ResolveVcxprojFile();
             resolve.ResolveCsFile();
             resolve.ResolveCsvFile();
-            resolve.ResolveHFile();
-            resolve.ResolveWsfFile();
+            // resolve.ResolveHFile();
+            // resolve.ResolveWsfFile();
             resolve.ResolvePackagespropsFile();
 
             #region ResolveFilesOfEventLogFromScan
@@ -118,16 +118,6 @@ namespace UpgradeSubstrateTargetVersion
             });
         }
 
-        public void ResolveHFile()
-        {
-            string[] paths = { "sources/dev/cluster/src/ReplicaVSSWriter/interop.h" };
-            ResolveFilesTask(paths, async (path) =>
-            {
-                FileMatch fileUtils = await FileMatch.ReadFileAsync(path);
-                return await fileUtils.SaveResult();
-            });
-        }
-
         public void ResolveCsFile()
         {
             string[] paths ={
@@ -177,14 +167,24 @@ namespace UpgradeSubstrateTargetVersion
             });
         }
 
-        public void ResolveWsfFile()
-        {
-            string[] paths = { "sources/test/ese/src/scripts/unittests.wsf" };
-            ResolveFilesTask(paths, async (path) =>
-            {
-                FileMatch fileUtils = await FileMatch.ReadFileAsync(path);
-                return await fileUtils.SaveResult();
-            });
-        }
+        //public void ResolveHFile()
+        //{
+        //    string[] paths = { "sources/dev/cluster/src/ReplicaVSSWriter/interop.h" };
+        //    ResolveFilesTask(paths, async (path) =>
+        //    {
+        //        FileMatch fileUtils = await FileMatch.ReadFileAsync(path);
+        //        return await fileUtils.SaveResult();
+        //    });
+        //}
+
+        //public void ResolveWsfFile()
+        //{
+        //    string[] paths = { "sources/test/ese/src/scripts/unittests.wsf" };
+        //    ResolveFilesTask(paths, async (path) =>
+        //    {
+        //        FileMatch fileUtils = await FileMatch.ReadFileAsync(path);
+        //        return await fileUtils.SaveResult();
+        //    });
+        //}
     }
 }
