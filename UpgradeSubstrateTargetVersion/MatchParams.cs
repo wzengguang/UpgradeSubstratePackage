@@ -1,18 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Xml;
-
-namespace UpgradeSubstrateTargetVersion
+﻿namespace UpgradeSubstrateTargetVersion
 {
+    using System.Xml;
+
     public class MatchParam
     {
         public List<string> Path { get; set; } = new List<string>();
 
+        public List<string> PathNot { get; set; } = new List<string>();
+
         public List<string> When { get; set; } = new List<string>();
+
+        public bool IsWhenAll { get; set; } = true;
+
+        public List<string> WhenNot { get; set; } = new List<string>();
 
         public List<string> value { get; set; } = new List<string>();
 
@@ -51,17 +51,52 @@ namespace UpgradeSubstrateTargetVersion
                                 }
                             }
                         }
+                        if (node.Name == "PathNot")
+                        {
+                            foreach (var item in node.InnerXml.Split(Environment.NewLine))
+                            {
+                                if (!string.IsNullOrWhiteSpace(item))
+                                {
+                                    matchParam.PathNot.Add(item.TrimStart());
+                                }
+                            }
+                        }
+                        else if (node.Name == "WhenAll")
+                        {
+                            matchParam.IsWhenAll = !node.InnerText.Contains("false", StringComparison.OrdinalIgnoreCase);
+                        }
                         else if (node.Name == "When")
                         {
                             foreach (XmlNode item in node.ChildNodes)
                             {
-                                if (item.NodeType == XmlNodeType.Whitespace)
+                                if (item.NodeType == XmlNodeType.Element || item.NodeType == XmlNodeType.Text)
                                 {
-                                    continue;
+                                    string regex = GetRegexValue(node, item);
+                                    matchParam.When.Add(regex);
                                 }
-
-                                string regex = item.OuterXml.ToRegexString();
-                                matchParam.When.Add(regex);
+                            }
+                        }
+                        else if (node.Name == "WhenNot")
+                        {
+                            foreach (XmlNode item in node.ChildNodes)
+                            {
+                                if (item.NodeType == XmlNodeType.Element || item.NodeType == XmlNodeType.Text)
+                                {
+                                    string regex = GetRegexValue(node, item);
+                                    matchParam.WhenNot.Add(regex);
+                                }
+                            }
+                        }
+                        else if (node.Name == "Where")
+                        {
+                            foreach (XmlNode item in node.ChildNodes)
+                            {
+                                if (item.NodeType != XmlNodeType.Whitespace)
+                                {
+                                    string regex = item.OuterXml.ToRegexString();
+                                    matchParam.Where = regex;
+                                    break;
+                                }
                             }
                         }
                         else if (node.Name == "Value")
@@ -87,6 +122,15 @@ namespace UpgradeSubstrateTargetVersion
             }
 
             return matchParamsList;
+        }
+
+        private static string GetRegexValue(XmlNode node, XmlNode item)
+        {
+            var noprefixspace = node?.Attributes != null && string.Equals(node.Attributes["NoPrefixSpace"]?.Value, "true", StringComparison.OrdinalIgnoreCase);
+            var nopostfixspace = node?.Attributes != null && string.Equals(node.Attributes["NoPostfixSpace"]?.Value, "true", StringComparison.OrdinalIgnoreCase);
+
+            string regex = item.OuterXml.ToRegexString(noprefixspace, nopostfixspace);
+            return regex;
         }
     }
 }

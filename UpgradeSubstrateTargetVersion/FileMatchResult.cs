@@ -21,12 +21,15 @@ namespace UpgradeSubstrateTargetVersion
 
         public int PortableCount { get; private set; }
 
+        public int DiagnosticsCount { get; private set; }
+
         public string Skip { get; private set; }
 
         public static FileMatchResult CreateFileMatchResult(FileMatch fileUtil)
         {
             int eventLogCount = Regex.Matches(fileUtil.Content, AppSettings.EventLog, RegexOptions.IgnoreCase).Count;
             int portableCount = Regex.Matches(fileUtil.Content, AppSettings.Portable, RegexOptions.IgnoreCase).Count;
+            int diagnosticsCount = Regex.Matches(fileUtil.Content, AppSettings.DiagnosticsEventLog, RegexOptions.IgnoreCase).Count;
             int matchedCount = 0, needModifiedCount = 0;
             if (fileUtil.MatchUtils != null && fileUtil.MatchUtils.Count > 0)
             {
@@ -39,6 +42,7 @@ namespace UpgradeSubstrateTargetVersion
 
             return matchedCount > 0 || eventLogCount > 0 ? new FileMatchResult
             {
+                DiagnosticsCount = diagnosticsCount,
                 Path = fileUtil.Path,
                 MatchedCount = matchedCount,
                 ModifiedCount = fileUtil.ModifiedCount,

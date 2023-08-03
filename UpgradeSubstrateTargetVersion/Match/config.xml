@@ -1,0 +1,46 @@
+﻿<xml>
+  <Case>
+    <When>
+      <add assembly="Microsoft.M365.Core.EventLog, Version=18.0.0.0, Culture=neutral, PublicKeyToken=5a24b4a52c5686bd" />
+    </When>
+    <Value>
+      <add assembly="Microsoft.M365.Core.Portable.EventLog, Version=18.0.0.0, Culture=neutral, publicKeyToken=5a24b4a52c5686bd" />
+    </Value>
+  </Case>
+  <Case>
+    <When>
+      <add assembly="Microsoft.M365.Core.EventLog, Version=18.0.0.0, Culture=neutral, PublicKeyToken=5a24b4a52c5686bd" />
+    </When>
+    <Value>
+      <add assembly="System.Diagnostics.EventLog, Version=18.0.0.0, Culture=neutral, publicKeyToken=5a24b4a52c5686bd" />
+    </Value>
+  </Case>
+  <Case>
+    <When>
+      <dependentAssembly>
+        <assemblyIdentity name="Microsoft.M365.Core.EventLog" publicKeyToken="5a24b4a52c5686bd" culture="neutral" />
+        <codeBase version="18.0.0.0" href="file:///%ExchangeInstallDir%bin\Microsoft.M365.Core.EventLog.dll" />
+      </dependentAssembly>
+    </When>
+    <Value>
+      <dependentAssembly>
+        <assemblyIdentity name="System.Diagnostics.EventLog" publicKeyToken="5a24b4a52c5686bd" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-4.0.2.0" newVersion="4.0.2.0" />
+      </dependentAssembly>
+    </Value>
+  </Case>
+  <Case>
+    <When>
+      <dependentAssembly>
+        <assemblyIdentity name="Microsoft.M365.Core.EventLog" publicKeyToken="5a24b4a52c5686bd" culture="neutral" />
+        <codeBase version="18.0.0.0" href="file:///%ExchangeInstallDir%bin\Microsoft.M365.Core.EventLog.dll" />
+      </dependentAssembly>
+    </When>
+    <Value>
+      <dependentAssembly>
+        <assemblyIdentity name="Microsoft.M365.Core.Portable.EventLog" publicKeyToken="5a24b4a52c5686bd" culture="neutral" />
+        <codeBase version="18.0.0.0" href="file:///%ExchangeInstallDir%bin\Microsoft.M365.Core.Portable.EventLog.dll" />
+      </dependentAssembly>
+    </Value>
+  </Case>
+</xml>

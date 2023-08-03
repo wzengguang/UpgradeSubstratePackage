@@ -76,41 +76,100 @@ namespace UpgradeSubstrateTargetVersion
             return (null, null);
         }
 
-        public void Match(MatchParam matchParam, bool whenAll = true, bool matchLine = true)
+        private bool PreMatch(MatchParam matchParam)
         {
+            if (matchParam.PathNot.Count != 0 && matchParam.PathNot.Exists(a => Path.Contains(a, StringComparison.OrdinalIgnoreCase)))
+            {
+                return false;
+            }
+
             if (matchParam.Path.Count != 0 && !matchParam.Path.Exists(a => Path.Contains(a, StringComparison.OrdinalIgnoreCase)))
             {
-                return;
+                return false;
             }
 
-            if (whenAll && !IsMatchAll(matchParam.When.ToArray()))
+            if (matchParam.IsWhenAll && !IsMatchAll(matchParam.When.ToArray()))
             {
-                return;
+                return false;
             }
 
-            if (!whenAll && !IsMatchAny(matchParam.When.ToArray()))
+            if (!matchParam.IsWhenAll && !IsMatchAny(matchParam.When.ToArray()))
             {
-                return;
+                return false;
             }
 
-            var match = FirstMatch(matchParam.When.ToArray());
-            string whereStr = string.IsNullOrEmpty(matchParam.Where) ? match.Item1 : matchParam.Where;
-            whereStr = (matchLine ? @"\s*" : "") + whereStr;
-            Match where = Regex.Match(Content, whereStr, RegexOptions.IgnoreCase);
-            if (where.Success)
+            if (matchParam.WhenNot.Count != 0)
             {
-                var vString = FormateSpaces(matchParam.value, where);
-
-                if (Regex.IsMatch(Content, vString.ToRegexString(), RegexOptions.IgnoreCase))
+                foreach (var item in matchParam.WhenNot)
                 {
-                    return;
+                    if (Regex.IsMatch(Content, item, RegexOptions.IgnoreCase))
+                    {
+                        return false;
+                    }
                 }
+            }
 
-                string newContent = Regex.Replace(Content, whereStr, m => vString + m.Value, RegexOptions.IgnoreCase);
-                if (newContent.Contains(vString))
+            return true;
+        }
+
+        public void Replace(List<MatchParam> matchParams)
+        {
+            foreach (var matchParam in matchParams)
+            {
+                if (PreMatch(matchParam))
                 {
-                    this.ModifiedCount++;
-                    Content = newContent;
+                    string whereRegex = matchParam.When.First();
+                    Match where = Regex.Match(Content, whereRegex, RegexOptions.IgnoreCase);
+                    if (where.Success)
+                    {
+                        var vString = matchParam.value.Count == 0 ? "" : FormateSpaces(matchParam.value, where);
+
+                        if (!string.IsNullOrEmpty(vString) && Regex.IsMatch(Content, vString.ToRegexString(), RegexOptions.IgnoreCase))
+                        {
+                            return;
+                        }
+
+                        string newContent = Regex.Replace(Content, whereRegex, m => vString, RegexOptions.IgnoreCase);
+                        if (newContent.Contains(vString))
+                        {
+                            this.ModifiedCount++;
+                            Content = newContent;
+                        }
+                    }
+                }
+            }
+        }
+
+        public void Insert(List<MatchParam> matchParams)
+        {
+            foreach (var item in matchParams)
+            {
+                Insert(item);
+            }
+        }
+
+        public void Insert(MatchParam matchParam)
+        {
+            if (PreMatch(matchParam))
+            {
+                var match = FirstMatch(matchParam.When.ToArray());
+                string whereStr = string.IsNullOrEmpty(matchParam.Where) ? match.Item1 : matchParam.Where;
+                Match where = Regex.Match(Content, whereStr, RegexOptions.IgnoreCase);
+                if (where.Success)
+                {
+                    var vString = FormateSpaces(matchParam.value, where);
+
+                    if (Regex.IsMatch(Content, vString.ToRegexString(), RegexOptions.IgnoreCase))
+                    {
+                        return;
+                    }
+
+                    string newContent = Regex.Replace(Content, whereStr, m => vString + m.Value, RegexOptions.IgnoreCase);
+                    if (newContent.Contains(vString))
+                    {
+                        this.ModifiedCount++;
+                        Content = newContent;
+                    }
                 }
             }
         }

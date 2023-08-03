@@ -51,11 +51,19 @@
 
             var taskResult2 = TaskResults.Where(a => string.IsNullOrEmpty(a.Skip) && a.EventLogCount > a.PortableCount).OrderBy(a => Path.GetExtension(a.Path))
                 .Select(a => $"[E:{a.EventLogCount};P:{a.PortableCount}]" + a.Path);
-            File.WriteAllLines(nameof(TaskResults) + 2, taskResult2);
+            File.WriteAllLines("LessPortableCount", taskResult2);
 
             var taskResult3 = TaskResults.Where(a => string.IsNullOrEmpty(a.Skip) && a.EventLogCount < a.PortableCount).OrderBy(a => Path.GetExtension(a.Path))
                 .Select(a => $"[E:{a.EventLogCount};P:{a.PortableCount}]" + a.Path);
-            File.WriteAllLines(nameof(TaskResults) + 3, taskResult3);
+            File.WriteAllLines("MorePortableCount", taskResult3);
+
+            var taskResult4 = TaskResults.Where(a => string.IsNullOrEmpty(a.Skip) && a.EventLogCount > a.DiagnosticsCount).OrderBy(a => Path.GetExtension(a.Path))
+                .Select(a => $"[E:{a.EventLogCount};D:{a.DiagnosticsCount}]" + a.Path);
+            File.WriteAllLines("LessDiagnosticsCount", taskResult4);
+
+            var taskResult5 = TaskResults.Where(a => string.IsNullOrEmpty(a.Skip) && a.EventLogCount < a.DiagnosticsCount).OrderBy(a => Path.GetExtension(a.Path))
+                .Select(a => $"[E:{a.EventLogCount};D:{a.DiagnosticsCount}]" + a.Path);
+            File.WriteAllLines("MoreDiagnosticsCount", taskResult5);
         }
     }
 }

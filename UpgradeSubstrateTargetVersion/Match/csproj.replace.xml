@@ -1,0 +1,15 @@
+﻿<xml>
+  <Case>
+    <When>
+      <Reference Include="$(PkgOSS_Build_ExchangeTestStudio)\ExchangeTestStudio\Content\System.Diagnostics.EventLog.dll" AllowedUnnecessary="true" />
+    </When>
+    <When NoPrefixSpace="true" NoPostfixSpace="true">
+      $(PkgSystem_Diagnostics_EventLog)\lib\net461\System.Diagnostics.EventLog.dll
+    </When>
+    <When NoPrefixSpace="true" NoPostfixSpace="true">
+      $(PkgMicrosoft_M365_Core_Portable_EventLog)\lib\netstandard2.0\Microsoft.M365.Core.Portable.EventLog.dll
+    </When>
+    <Value>
+    </Value>
+  </Case>
+</xml>

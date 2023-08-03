@@ -64,50 +64,8 @@ namespace UpgradeSubstrateTargetVersion
                 var matchparams = MatchParam.Load("match/wxs.xml");
                 foreach (var item in matchparams)
                 {
-                    fileMatch.Match(item);
+                    fileMatch.Insert(item);
                 }
-
-                //string when = Pattern(@"<File Vital=""yes"" Source=""$(var.PkgMicrosoft_M365_Core_EventLog)\lib\net462\Microsoft.M365.Core.EventLog.dll"" />");
-                //string whenNot = @"Microsoft\.M365\.Core\.Portable\.EventLog\.dll";
-                //string fileName = Path.GetFileNameWithoutExtension(path).Replace('.', '_');
-                //string[] inserts =
-                //    {
-                //    $"<File Id=\"{fileName}_System_Diagnostics_EventLog\" Source=\"$(var.PkgSystem_Diagnostics_EventLog)\\lib\\net461\\System.Diagnostics.EventLog.dll\" />",
-                //    $"<File Id=\"{fileName}_Microsoft_M365_Core_Portable_EventLog\" Source=\"$(var.PkgMicrosoft_M365_Core_Portable_EventLog)\\lib\\netstandard2.0\\Microsoft.M365.Core.Portable.EventLog.dll\" />"
-                //    };
-
-                if (path.Contains("dev\\Hygiene\\MSIs\\WstSetup\\msi\\ManagedClient.wxs", StringComparison.OrdinalIgnoreCase))
-                {
-                    //when = @"\s*\<Component Id=""Microsoft\.M365\.Core\.EventLog\.dll""";
-                    //whenNot = @"Microsoft\.M365\.Core\.Portable\.EventLog\.dll";
-                    //inserts =
-                    //{
-                    //    "",
-                    //    @"<Component Id=""System.Diagnostics.EventLog.dll"" Guid=""CDBD702E-71F2-4A77-BFF1-240A002F25B2"" Directory=""INSTALLDIR"">",
-                    //    @"  <File Id=""System.Diagnostics.EventLog.dll"" Name=""System.Diagnostics.EventLog.dll"" KeyPath=""yes"" Compressed=""yes"" Source=""$(var.PkgSystem_Diagnostics_EventLog)\lib\net461\System.Diagnostics.EventLog.dll"" />",
-                    //    @"</Component>",
-                    //    "",
-                    //    @"<Component Id=""Microsoft.M365.Core.Portable.EventLog.dll"" Guid=""D3E09636-6C39-4C9C-ACE8-F3A813BF9C65"" Directory=""INSTALLDIR"">",
-                    //    @"  <File Id=""Microsoft.M365.Core.Portable.EventLog.dll"" Name=""Microsoft.M365.Core.Portable.EventLog.dll"" KeyPath=""yes"" Compressed=""yes""  Source=""$(var.PkgMicrosoft_M365_Core_Portable_EventLog)\lib\netstandard2.0\Microsoft.M365.Core.Portable.EventLog.dll"" />",
-                    //    @"</Component>"
-                    //};
-
-                    //fileMatch.InsertWhenAndNot(whenNot, when, inserts);
-                }
-                else
-                {
-                    //string fileName = Path.GetFileNameWithoutExtension(path).Replace('.', '_');
-
-                    //string when = @"\s*\<File Id=""\w+"" Source=""\$\(var\.PkgMicrosoft_M365_Core_EventLog\)\\lib\\";
-                    //string whenNot = "var\\.PkgSystem_Diagnostics_EventLog";
-                    //string[] inserts =
-                    //{
-                    //$"<File Id=\"{fileName}_System_Diagnostics_EventLog\" Source=\"$(var.PkgSystem_Diagnostics_EventLog)\\lib\\net461\\System.Diagnostics.EventLog.dll\" />",
-                    //$"<File Id=\"{fileName}_Microsoft_M365_Core_Portable_EventLog\" Source=\"$(var.PkgMicrosoft_M365_Core_Portable_EventLog)\\lib\\netstandard2.0\\Microsoft.M365.Core.Portable.EventLog.dll\" />"
-                    //};
-                    //fileMatch.InsertWhenAndNot(whenNot, when, inserts);
-                }
-
                 return await fileMatch.SaveResult();
             });
         }
@@ -116,84 +74,15 @@ namespace UpgradeSubstrateTargetVersion
         {
             ResolveFilesTask(scan.ConfigFiles, async (path) =>
             {
-                FileMatch fileUtils = await FileMatch.ReadFileAsync(path, false);
-                this.ResolveConfigFilesDependentAssembly(fileUtils);
-                this.ResolveConfigFilesAssembly(fileUtils);
+                FileMatch fileMatch = await FileMatch.ReadFileAsync(path);
 
-                return await fileUtils.SaveResult();
+                var matchparams = MatchParam.Load("match/config.xml");
+                foreach (var item in matchparams)
+                {
+                    fileMatch.Insert(item);
+                }
+                return await fileMatch.SaveResult();
             });
-        }
-
-        private void ResolveConfigFilesDependentAssembly(FileMatch fileUtils)
-        {
-            // codeBase: Microsoft.M365.Core.Portable.EventLog
-            string when = @"\s*\<dependentAssembly\>\s+\<assemblyIdentity name=""Microsoft\.M365\.Core\.EventLog""\s+publicKeyToken=""[A-Za-z0-9]+""\s+culture=""neutral""\s+\/\>\s+\<codeBase";
-            string whenNot = @"\<assemblyIdentity name=""Microsoft\.M365\.Core\.Portable\.EventLog""\s+publicKeyToken=""[A-Za-z0-9]+""\s+culture=""neutral""\s+\/\>\s+\<codeBase version=""18.0.0.0""";
-            string[] inserts =
-            {
-                        "<dependentAssembly>",
-                        "  <assemblyIdentity name=\"Microsoft.M365.Core.Portable.EventLog\" publicKeyToken=\"5a24b4a52c5686bd\" culture=\"neutral\" />",
-                        "  <codeBase version=\"18.0.0.0\" href=\"file:///%ExchangeInstallDir%bin\\Microsoft.M365.Core.Portable.EventLog.dll\" />",
-                        "</dependentAssembly>"
-                    };
-            fileUtils.InsertWhenAndNot(whenNot, when, inserts);
-
-            string when2 = @"\s*\<dependentAssembly\>\s+\<assemblyIdentity name=""Microsoft\.M365\.Core\.EventLog""\s+publicKeyToken=""[A-Za-z0-9]+""\s+culture=""neutral""\s+\/\>\s+\<bindingRedirect";
-            string whenNot2 = @"\<assemblyIdentity name=""Microsoft\.M365\.Core\.Portable\.EventLog""\s+publicKeyToken=""[A-Za-z0-9]+""\s+culture=""neutral""\s+\/\>\s+\<bindingRedirect";
-            string[] inserts2 = new string[]
-             {
-                            "<dependentAssembly>",
-                            "  <assemblyIdentity name=\"Microsoft.M365.Core.Portable.EventLog\" publicKeyToken=\"5a24b4a52c5686bd\" culture=\"neutral\" />",
-                            "  <bindingRedirect oldVersion=\"0.0.0.0-18.0.0.0\" newVersion=\"18.0.0.0\" />",
-                            "</dependentAssembly>"
-                     };
-            fileUtils.InsertWhenAndNot(whenNot2, when2, inserts2);
-
-
-            //if (fileUtils.Path.Contains("dev\\common\\src\\common\\SharedBindingRedirects.config"))
-            //{
-            //    string whenNot01 = @"\<assemblyIdentity name=""Microsoft\.M365\.Core\.Portable\.EventLog""\s+publicKeyToken=""[A-Za-z0-9]+""\s+culture=""neutral""\s+\/\>\s+\<bindingRedirect";
-            //    string[] inserts01 =
-            //    {
-            //                "<dependentAssembly>",
-            //                "  <assemblyIdentity name=\"Microsoft.M365.Core.Portable.EventLog\" publicKeyToken=\"5a24b4a52c5686bd\" culture=\"neutral\" />",
-            //                "  <bindingRedirect oldVersion=\"0.0.0.0-18.0.0.0\" newVersion=\"18.0.0.0\" />",
-            //                "</dependentAssembly>"
-            //            };
-            //    fileUtils.InsertWhenAndNot(whenNot01, when, inserts01);
-            //}
-
-            // bindingRedirect: System.Diagnostics.EventLog, 可能有些文件有了。
-            string when3 = @"\s*\<dependentAssembly\>\s+\<assemblyIdentity name=""System\.Diagnostics\.EventLog""\s+publicKeyToken=""[A-Za-z0-9]+""\s+culture=""neutral""\s+\/\>\s+\<bindingRedirect";
-            string whenNot3 = @"\<assemblyIdentity name=""System\.Diagnostics\.EventLog""";
-            string[] inserts3 =
-            {
-                        "<dependentAssembly>",
-                        "  <assemblyIdentity name=\"System.Diagnostics.EventLog\" publicKeyToken=\"5a24b4a52c5686bd\" culture=\"neutral\" />",
-                        "  <bindingRedirect oldVersion=\"0.0.0.0-4.0.2.0\" newVersion=\"4.0.2.0\" />",
-                        "</dependentAssembly>"
-                    };
-            fileUtils.InsertWhenAndNot(whenNot3, when3, inserts3);
-        }
-
-        private void ResolveConfigFilesAssembly(FileMatch fileUtils)
-        {
-            string when = @"\s+\<add assembly=""Microsoft\.M365\.Core\.EventLog";
-            string whenNot = @"\<add assembly=""Microsoft\.M365\.Core\.Portable\.EventLog";
-            string[] inserts =
-                {
-                "<add assembly=\"Microsoft.M365.Core.Portable.EventLog, Version=18.0.0.0, Culture=neutral, publicKeyToken=5a24b4a52c5686bd\" />",
-                };
-
-            fileUtils.InsertWhenAndNot(whenNot, when, inserts);
-
-            string whenNot2 = @"\<add assembly=""System\.Diagnostics\.EventLog";
-            string[] inserts2 =
-                {
-                "<add assembly=\"System.Diagnostics.EventLog, Version=18.0.0.0, Culture=neutral, publicKeyToken=5a24b4a52c5686bd\" />",
-                };
-
-            fileUtils.InsertWhenAndNot(whenNot2, when, inserts2);
         }
 
         public void ResolveXmlDropFiles()
@@ -298,6 +187,8 @@ namespace UpgradeSubstrateTargetVersion
 
                 FileMatchResult result = null;
                 FileMatch fileUtils = await FileMatch.ReadFileAsync(path, false);
+                List<MatchParam> matchParams = MatchParam.Load("match/csproj.replace.xml");
+                fileUtils.Replace(matchParams);
 
                 // case:
                 string when = @"\s*""\$\(PkgMicrosoft_M365_Core_EventLog\)\\lib\\net462\\Microsoft\.M365\.Core\.EventLog\.dll"" \^";

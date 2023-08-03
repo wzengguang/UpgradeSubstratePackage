@@ -1,17 +1,44 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-
-namespace UpgradeSubstrateTargetVersion
+﻿namespace UpgradeSubstrateTargetVersion
 {
+    using System.Text.RegularExpressions;
+
     public static class RegexUtil
     {
-        public static string ToRegexString(this string pattern)
+        public static string ToRegexString(this string pattern, bool noprefixSpace = false, bool nopostfixspace = false)
         {
-            pattern = Regex.Replace(pattern, @"\r\n\s+", @"\s+");
+            string matchSpace = @"\s*";
+
+            pattern = Regex.Replace(pattern, @"\r\n\s+", matchSpace);
+
+            if (noprefixSpace)
+            {
+                if (pattern.StartsWith(matchSpace))
+                {
+                    pattern = pattern.Substring(3);
+                }
+            }
+            else
+            {
+                if (!pattern.StartsWith(matchSpace))
+                {
+                    pattern = matchSpace + pattern;
+                }
+            }
+
+            if (nopostfixspace)
+            {
+                if (pattern.EndsWith(matchSpace))
+                {
+                    pattern = pattern.Substring(0, pattern.Length - 4);
+                }
+            }
+            else
+            {
+                if (!pattern.EndsWith(matchSpace))
+                {
+                    pattern = pattern + matchSpace;
+                }
+            }
 
             var chars = new List<char>(pattern.ToCharArray());
 
@@ -21,7 +48,7 @@ namespace UpgradeSubstrateTargetVersion
 
             while (i < chars.Count - 2)
             {
-                if (i < chars.Count - 3 && chars[i] == '\\' && chars[i + 1] == 's' && (chars[i + 2] == '*' || chars[i + 2] == '+'))
+                if (i <= chars.Count - 3 && chars[i] == '\\' && (chars[i + 1] == 's' || chars[i + 1] == 'w') && (chars[i + 2] == '*' || chars[i + 2] == '+'))
                 {
                     i += 3;
                     continue;
