@@ -22,12 +22,14 @@ namespace UpgradeSubstrateTargetVersion
         public int PortableCount { get; private set; }
 
         public int DiagnosticsCount { get; private set; }
+        public int PerseusCount { get; private set; }
 
         public string Skip { get; private set; }
 
         public static FileMatchResult CreateFileMatchResult(FileMatch fileUtil)
         {
             int eventLogCount = Regex.Matches(fileUtil.Content, AppSettings.EventLog, RegexOptions.IgnoreCase).Count;
+            int perseusCount = Regex.Matches(fileUtil.Content, AppSettings.Perseus, RegexOptions.IgnoreCase).Count;
             int portableCount = Regex.Matches(fileUtil.Content, AppSettings.Portable, RegexOptions.IgnoreCase).Count;
             int diagnosticsCount = Regex.Matches(fileUtil.Content, AppSettings.DiagnosticsEventLog, RegexOptions.IgnoreCase).Count;
             int matchedCount = 0, needModifiedCount = 0;
@@ -49,7 +51,8 @@ namespace UpgradeSubstrateTargetVersion
                 TotalModifiedCount = needModifiedCount,
                 PortableCount = portableCount,
                 EventLogCount = eventLogCount,
-                Skip = fileUtil.SkipFile
+                Skip = fileUtil.SkipFile,
+                PerseusCount = perseusCount
             } : null;
         }
     }

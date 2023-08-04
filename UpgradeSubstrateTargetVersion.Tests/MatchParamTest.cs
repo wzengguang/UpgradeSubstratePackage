@@ -14,7 +14,6 @@ namespace UpgradeSubstrateTargetVersion.Tests
         public void T1()
         {
             var result = MatchParam.Load("Match/csproj.replace.xml");
-
         }
     }
 }

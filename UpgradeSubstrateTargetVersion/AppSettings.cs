@@ -15,5 +15,6 @@
         public static string DiagnosticsEventLog = @"System\.Diagnostics\.EventLog";
 
         public static string Portable = @"Microsoft\.M365\.Core\.Portable\.EventLog";
+        public static string Perseus = @"Perseus\.DataTypes\.targets";
     }
 }

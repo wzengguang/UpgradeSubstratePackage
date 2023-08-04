@@ -29,7 +29,7 @@
             {
                 foreach (XmlNode xmlNode in xmlNodeList)
                 {
-                    if (xmlNode.NodeType == XmlNodeType.Whitespace)
+                    if (xmlNode.NodeType != XmlNodeType.Element)
                     {
                         continue;
                     }
@@ -37,7 +37,7 @@
                     MatchParam matchParam = new MatchParam();
                     foreach (XmlNode node in xmlNode.ChildNodes)
                     {
-                        if (node.NodeType == XmlNodeType.Whitespace)
+                        if (xmlNode.NodeType != XmlNodeType.Element)
                         {
                             continue;
                         }
@@ -91,7 +91,7 @@
                         {
                             foreach (XmlNode item in node.ChildNodes)
                             {
-                                if (item.NodeType != XmlNodeType.Whitespace)
+                                if (item.NodeType == XmlNodeType.Element || item.NodeType == XmlNodeType.Text)
                                 {
                                     string regex = item.OuterXml.ToRegexString();
                                     matchParam.Where = regex;

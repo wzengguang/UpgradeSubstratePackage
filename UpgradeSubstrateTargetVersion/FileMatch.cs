@@ -6,10 +6,14 @@ namespace UpgradeSubstrateTargetVersion
     using System.Linq;
     using System.Text.RegularExpressions;
     using System.Threading.Tasks;
+    using System.Xml;
+    using System.Xml.Linq;
 
     public class FileMatch
     {
         public string SkipFile { get; set; } = string.Empty;
+
+        private XDocument xDoc;
 
         public int ModifiedCount { get; private set; }
 
@@ -17,12 +21,11 @@ namespace UpgradeSubstrateTargetVersion
 
         public string Content { private set; get; }
 
+
         public static async Task<FileMatch> ReadFileAsync(string relativePath, bool isRelativePath = true)
         {
             string path = isRelativePath ? System.IO.Path.Combine(AppSettings.RootPath, relativePath) : relativePath;
-
             string strings = await File.ReadAllTextAsync(path);
-
             return new FileMatch(path, strings);
         }
 
@@ -32,6 +35,7 @@ namespace UpgradeSubstrateTargetVersion
         {
             this.Path = path;
             this.Content = txt;
+            this.xDoc = XDocument.Parse(txt);
         }
 
         public void Replace(string match, string replace)

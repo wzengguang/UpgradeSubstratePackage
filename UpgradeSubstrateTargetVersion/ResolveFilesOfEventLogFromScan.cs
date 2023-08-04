@@ -106,77 +106,78 @@ namespace UpgradeSubstrateTargetVersion
         {
             List<MatchUtil> matches = MatchUtil.GetMatchs("Data/csproj");
             List<string> exclude = new() {
-                "Dev\\Clients\\src\\common",
-                "dev\\services\\src\\EwsSerializersGeneratorPostProcessing",
-                "dev\\common\\src\\BinPlaceForPackages\\BinPlaceForPackages",
-                "dev\\admin\\src\\Reports\\Server\\Extensions",
-                "dev\\admin\\src\\ecp\\ControlPanel",
-                "Broker\\Service",
-                "dev\\admin\\src\\ReportingWebService\\Service",
-                "Dev\\Cafe\\src\\FootPrint",
-                "Dev\\Common\\src\\DnsOpticsCollector",
-                "Dev\\Search\\Src\\Service",
-                "dev\\Networking\\src\\NetMan\\NetworkManager",
-                "Dev\\Filtering\\src\\platform\\Management\\ADConnector\\Impl",
-                "src\\TrainingRecord\\TrainingRecordManager",
-                "src\\CacheConvergence\\Diagnostics",
-                "Dev\\Networking\\src\\ReTiNA\\BranchConnectOpticsLogger",
-                "Dev\\Data\\src\\ThrottlingService\\Service",
-                "Dev\\Networking\\src\\PLAT\\Microsoft.Office.Datacenter.Connectivity.PLAT.Shared",
-                "Dev\\Cafe\\src\\AnycastDnsOnCafe\\DnsHelperService",
-                "Dev\\Services\\src\\OAB",
-                "Dev\\MailboxAssistants\\src\\Service",
-                "Dev\\MailboxAssistants\\src\\AssistantInfra\\src",
-                "Dev\\MapiMT\\src\\RpcHttpModules",
-                "Dev\\Directory\\src\\CacheService",
-                "Dev\\RcaService\\src\\Service",
-                "Test\\Performance\\SRC\\EDS",
-                "Dev\\Networking\\src\\ReTiNA\\SinkPlugin",
-                "Test\\Transport\\src\\PoisonMsg\\NonBVT\\Component\\Tests",
-                "Dev\\Clients\\src\\security",
-                "Dev\\Cafe\\src\\Diagnostics",
-                "Test\\Transport\\src\\smtp\\ZeroBox",
-                "test\\tools\\src\\EdgeManagement2",
-                "Dev\\Networking\\src\\PLAT\\Microsoft.Office.Datacenter.Connectivity.PLAT.PLATClient",
-                "Dev\\SharedCache\\src\\Caches",
-                "Dev\\Networking\\src\\PLAT\\Microsoft.Office.Datacenter.Connectivity.PLAT.PLATServer",
-                "Test\\Transport\\src\\transport\\ZeroBox",
-                "Test\\Tools\\src\\TenantMonitoring",
-                "Dev\\Networking\\src\\ReTiNA\\LensHostService",
-                "Dev\\SharedCache\\src\\Server",
-                "Dev\\MessageSecurity\\src\\Service",
-                "Dev\\Directory\\src\\TopologyService\\Service",
-                "Dev\\Cafe\\src\\SmokeTestHeaderModule",
-                "dev\\cafe\\src\\RoutingService\\Server",
-                "Test\\ExpoFramework\\src\\storage\\NonBVT",
-                "Test\\MailboxTransport\\src\\Categorizer\\Extensibility\\Agents",
-                "Dev\\Configuration\\src\\CertificateAuthentication",
-                "Dev\\Configuration\\src\\RemotePowershellBackendCmdletProxy",
-                "Dev\\Configuration\\src\\DiagnosticsModules",
-                "Dev\\Configuration\\src\\FailFast",
-                "dev\\cafe\\src\\HttpProxy",
-                "Test\\Transport\\src\\transport\\SafetyNet\\Component",
-                "dev\\clients\\src\\Owa2\\Server",
-                "Test\\Tools\\src\\EdgeAutoInfra",
-                "Test\\Transport\\src\\TransportSmoke",
-                "Test\\Filtering\\src\\platform\\AutomatedTests\\E15Automation\\Reporting",
-                "Test\\Infoworker\\src\\Shared\\Common\\Management",
-                "Dev\\Clients\\src\\owa\\bin",
-                "Dev\\E4E\\src\\Server",
-                "Test\\BCM\\src\\inboxrule\\NonBVT",
-                "Test\\Search\\Src\\Common",
-                "Test\\Transport\\src\\BackPressure\\Component",
-                "Test\\Directory\\src\\TopologyService\\ZeroBox",
-                "Test\\Transport\\src\\Storage\\ZeroBox",
-                "test\\infoworker\\src\\Shared\\ConsolidatedBinary",
-                "test\\Search\\src\\BigFunnel",
-                "test\\Search\\src\\Core",
-                "test\\infoworker\\src\\Shared\\Components\\ELC",
-                "test\\infoworker\\src\\NonBVT\\OOF",
-                "test\\infoworker\\src\\NonBVT\\Availability",
-                "sources\\Test\\Transport\\src\\smtp\\SmtpBlobs",
-                "sources\\Dev\\Data\\src\\dsapi\\Api",
-                "sources\\Test\\Management\\src\\Management\\ProvisioningSOPsTests"};
+                //"Dev\\Clients\\src\\common",
+                //"dev\\services\\src\\EwsSerializersGeneratorPostProcessing",
+                //"dev\\common\\src\\BinPlaceForPackages\\BinPlaceForPackages",
+                //"dev\\admin\\src\\Reports\\Server\\Extensions",
+                //"dev\\admin\\src\\ecp\\ControlPanel",
+                //"Broker\\Service",
+                //"dev\\admin\\src\\ReportingWebService\\Service",
+                //"Dev\\Cafe\\src\\FootPrint",
+                //"Dev\\Common\\src\\DnsOpticsCollector",
+                //"Dev\\Search\\Src\\Service",
+                //"dev\\Networking\\src\\NetMan\\NetworkManager",
+                //"Dev\\Filtering\\src\\platform\\Management\\ADConnector\\Impl",
+                //"src\\TrainingRecord\\TrainingRecordManager",
+                //"src\\CacheConvergence\\Diagnostics",
+                //"Dev\\Networking\\src\\ReTiNA\\BranchConnectOpticsLogger",
+                //"Dev\\Data\\src\\ThrottlingService\\Service",
+                //"Dev\\Networking\\src\\PLAT\\Microsoft.Office.Datacenter.Connectivity.PLAT.Shared",
+                //"Dev\\Cafe\\src\\AnycastDnsOnCafe\\DnsHelperService",
+                //"Dev\\Services\\src\\OAB",
+                //"Dev\\MailboxAssistants\\src\\Service",
+                //"Dev\\MailboxAssistants\\src\\AssistantInfra\\src",
+                //"Dev\\MapiMT\\src\\RpcHttpModules",
+                //"Dev\\Directory\\src\\CacheService",
+                //"Dev\\RcaService\\src\\Service",
+                //"Test\\Performance\\SRC\\EDS",
+                //"Dev\\Networking\\src\\ReTiNA\\SinkPlugin",
+                //"Test\\Transport\\src\\PoisonMsg\\NonBVT\\Component\\Tests",
+                //"Dev\\Clients\\src\\security",
+                //"Dev\\Cafe\\src\\Diagnostics",
+                //"Test\\Transport\\src\\smtp\\ZeroBox",
+                //"test\\tools\\src\\EdgeManagement2",
+                //"Dev\\Networking\\src\\PLAT\\Microsoft.Office.Datacenter.Connectivity.PLAT.PLATClient",
+                //"Dev\\SharedCache\\src\\Caches",
+                //"Dev\\Networking\\src\\PLAT\\Microsoft.Office.Datacenter.Connectivity.PLAT.PLATServer",
+                //"Test\\Transport\\src\\transport\\ZeroBox",
+                //"Test\\Tools\\src\\TenantMonitoring",
+                //"Dev\\Networking\\src\\ReTiNA\\LensHostService",
+                //"Dev\\SharedCache\\src\\Server",
+                //"Dev\\MessageSecurity\\src\\Service",
+                //"Dev\\Directory\\src\\TopologyService\\Service",
+                //"Dev\\Cafe\\src\\SmokeTestHeaderModule",
+                //"dev\\cafe\\src\\RoutingService\\Server",
+                //"Test\\ExpoFramework\\src\\storage\\NonBVT",
+                //"Test\\MailboxTransport\\src\\Categorizer\\Extensibility\\Agents",
+                //"Dev\\Configuration\\src\\CertificateAuthentication",
+                //"Dev\\Configuration\\src\\RemotePowershellBackendCmdletProxy",
+                //"Dev\\Configuration\\src\\DiagnosticsModules",
+                //"Dev\\Configuration\\src\\FailFast",
+                //"dev\\cafe\\src\\HttpProxy",
+                //"Test\\Transport\\src\\transport\\SafetyNet\\Component",
+                //"dev\\clients\\src\\Owa2\\Server",
+                //"Test\\Tools\\src\\EdgeAutoInfra",
+                //"Test\\Transport\\src\\TransportSmoke",
+                //"Test\\Filtering\\src\\platform\\AutomatedTests\\E15Automation\\Reporting",
+                //"Test\\Infoworker\\src\\Shared\\Common\\Management",
+                //"Dev\\Clients\\src\\owa\\bin",
+                //"Dev\\E4E\\src\\Server",
+                //"Test\\BCM\\src\\inboxrule\\NonBVT",
+                //"Test\\Search\\Src\\Common",
+                //"Test\\Transport\\src\\BackPressure\\Component",
+                //"Test\\Directory\\src\\TopologyService\\ZeroBox",
+                //"Test\\Transport\\src\\Storage\\ZeroBox",
+                //"test\\infoworker\\src\\Shared\\ConsolidatedBinary",
+                //"test\\Search\\src\\BigFunnel",
+                //"test\\Search\\src\\Core",
+                //"test\\infoworker\\src\\Shared\\Components\\ELC",
+                //"test\\infoworker\\src\\NonBVT\\OOF",
+                //"test\\infoworker\\src\\NonBVT\\Availability",
+                //"sources\\Test\\Transport\\src\\smtp\\SmtpBlobs",
+                //"sources\\Dev\\Data\\src\\dsapi\\Api",
+                "sources\\Test\\Management\\src\\Management\\ProvisioningSOPsTests"
+            };
 
             this.ResolveFilesTask(scan.CsprojFiles, async (path) =>
             {
@@ -185,329 +186,15 @@ namespace UpgradeSubstrateTargetVersion
                     return null;
                 }
 
-                FileMatchResult result = null;
                 FileMatch fileUtils = await FileMatch.ReadFileAsync(path, false);
-                List<MatchParam> matchParams = MatchParam.Load("match/csproj.replace.xml");
-                fileUtils.Replace(matchParams);
-
-                // case:
-                string when = @"\s*""\$\(PkgMicrosoft_M365_Core_EventLog\)\\lib\\net462\\Microsoft\.M365\.Core\.EventLog\.dll"" \^";
-                string whenNot = @"Microsoft\.M365\.Core\.Portable\.EventLog";
-                string[] inserts =
-                    {
-                    @"""$(PkgMicrosoft_M365_Core_Portable_EventLog)\lib\netstandard2.0\Microsoft.M365.Core.Portable.EventLog.dll"" ^"
-                };
-                fileUtils.InsertWhenAndNot(whenNot, when, inserts);
-
-                // case:
-                string when2 = @"\s*""\$\(PkgMicrosoft_M365_Core_EventLog\)\\lib\\net462\\Microsoft\.M365\.Core\.EventLog\.dll"" \^";
-                string whenNot2 = @"System\.Diagnostics\.EventLog\.dll";
-                string[] inserts2 =
-                    {
-                    @"""$(PkgSystem_Diagnostics_EventLog)\lib\net461\System.Diagnostics.EventLog.dll"" ^"
-                };
-                fileUtils.InsertWhenAndNot(whenNot2, when2, inserts2);
-
-                // case:
-                string when3 = @"\s*<QCustomInput\s+Include=""\$\(PkgMicrosoft_M365_Core_EventLog\)""\>";
-                string whenNot3 = @"\<QCustomInput Include=""\$\(PkgMicrosoft_M365_Core_Portable_EventLog\)""\>";
-                string[] inserts3 =
-                    {
-                    @"<QCustomInput Include=""$(PkgMicrosoft_M365_Core_Portable_EventLog)"">",
-                    @"  <Visible>false</Visible>",
-                    @"</QCustomInput>"
-                };
-                fileUtils.InsertWhenAndNot(whenNot3, when3, inserts3);
-
-                // case:
-                string when4 = @"\s*<QCustomInput\s+Include=""\$\(PkgMicrosoft_M365_Core_EventLog\)""\>";
-                string whenNot4 = @"\<QCustomInput Include=""\$\(PkgSystem_Diagnostics_EventLog\)""\>";
-                string[] inserts4 =
-                    {
-                    @"<QCustomInput Include=""$(PkgSystem_Diagnostics_EventLog)"">",
-                    @"  <Visible>false</Visible>",
-                    @"</QCustomInput>"
-                };
-                fileUtils.InsertWhenAndNot(whenNot4, when4, inserts4);
-
-                // case:
-                string when5 = @"\s*\<Reference Include=""Microsoft.M365.Core.EventLog.dll""\>\s*\<HintPath\>\$\(PkgMicrosoft_M365_Core_EventLog\)\\lib\\net462\\Microsoft\.M365\.Core\.EventLog\.dll";
-                string whenNot5 = @"\<HintPath\>\$\(PkgSystem_Diagnostics_EventLog\)\\lib\\";
-                string[] inserts5 =
-                    {
-                    @"<Reference Include=""System.Diagnostics.EventLog.dll"">",
-                    @"  <HintPath>$(PkgSystem_Diagnostics_EventLog)\lib\net461\System.Diagnostics.EventLog.dll</HintPath>",
-                    @"</Reference>"
-                };
-                fileUtils.InsertWhenAndNot(whenNot5, when5, inserts5);
-
-                // case:
-                string when6 = @"\s*\<Reference Include=""Microsoft.M365.Core.EventLog.dll""\>\s*\<HintPath\>\$\(PkgMicrosoft_M365_Core_EventLog\)\\lib\\net462\\Microsoft\.M365\.Core\.EventLog\.dll";
-                string whenNot6 = @"\<HintPath\>\$\(PkgMicrosoft_M365_Core_Portable_EventLog\)\\lib\\";
-                string[] inserts6 =
-                    {
-                    @"<Reference Include=""Microsoft.M365.Core.Portable.EventLog.dll"">",
-                    @"  <HintPath>$(PkgMicrosoft_M365_Core_Portable_EventLog)\lib\netstandard2.0\Microsoft.M365.Core.Portable.EventLog.dll</HintPath>",
-                    @"</Reference>"
-                };
-                fileUtils.InsertWhenAndNot(whenNot6, when6, inserts6);
-
-                string when7 = @" \$\(PkgMicrosoft_M365_Core_EventLog\)\\lib\\net462\\Microsoft\.M365\.Core\.EventLog\.dll ";
-                string whenNot7 = @" \$\(PkgSystem_Diagnostics_EventLog\)\\lib\\net461\\System\.Diagnostics\.EventLog\.dll ";
-                string inserts7 = @" $(PkgSystem_Diagnostics_EventLog)\lib\net461\System.Diagnostics.EventLog.dll";
-                fileUtils.InsertWhenAndNotNoFixSpaces(whenNot7, when7, inserts7);
-
-                string when8 = @" \$\(PkgMicrosoft_M365_Core_EventLog\)\\lib\\net462\\Microsoft\.M365\.Core\.EventLog\.dll ";
-                string whenNot8 = @" \$\(PkgMicrosoft_M365_Core_Portable_EventLog\)\\lib\\netstandard2\.0\\Microsoft\.M365\.Core\.Portable\.EventLog\.dll ";
-                string inserts8 = @" $(PkgMicrosoft_M365_Core_Portable_EventLog)\lib\netstandard2.0\Microsoft.M365.Core.Portable.EventLog.dll";
-                fileUtils.InsertWhenAndNotNoFixSpaces(whenNot8, when8, inserts8);
-
-                string when9 = @"\s+\<Copy SourceFiles=""\$\(PkgMicrosoft_M365_Core_EventLog\)\\lib\\net462\\Microsoft\.M365\.Core\.EventLog\.dll""";
-                string whenNot9 = @"\<Copy SourceFiles=""\$\(PkgMicrosoft_M365_Core_Portable_EventLog\)\\lib\\";
-                var inserts9 = new string[] { @"<Copy SourceFiles=""$(PkgMicrosoft_M365_Core_Portable_EventLog)\lib\netstandard2.0\Microsoft.M365.Core.Portable.EventLog.dll"" DestinationFolder=""$(DISTRIB_PRIVATE_BIN_PATH)"" SkipUnchangedFiles=""true"" />" };
-                fileUtils.InsertWhenAndNot(whenNot9, when9, inserts9);
-
-                string when10 = @"\s+\<Copy SourceFiles=""\$\(PkgMicrosoft_M365_Core_EventLog\)\\lib\\net462\\Microsoft\.M365\.Core\.EventLog\.dll""";
-                string whenNot10 = @"\<Copy SourceFiles=""\$\(PkgSystem_Diagnostics_EventLog\)\\lib\\";
-                var inserts10 = new string[] { @"<Copy SourceFiles=""$(PkgSystem_Diagnostics_EventLog)\lib\net461\System.Diagnostics.EventLog.dll"" DestinationFolder=""$(DISTRIB_PRIVATE_BIN_PATH)"" SkipUnchangedFiles=""true"" />" };
-                fileUtils.InsertWhenAndNot(whenNot10, when10, inserts10);
-
-                string when11 = @"\s+\<Delete Files=""\$\(DISTRIB_PRIVATE_BIN_PATH\)\\Microsoft\.M365\.Core\.EventLog\.dll""\s+\/\>";
-                string whenNot11 = @"\<Delete Files=""\$\(DISTRIB_PRIVATE_BIN_PATH\)\\System\.Diagnostics\.EventLog\.dll"" \/\>";
-                var inserts11 = new string[] { @"<Delete Files=""$(DISTRIB_PRIVATE_BIN_PATH)\System.Diagnostics.EventLog.dll"" />" };
-                fileUtils.InsertWhenAndNot(whenNot11, when11, inserts11);
-
-                string when12 = @"\s+\<Delete Files=""\$\(DISTRIB_PRIVATE_BIN_PATH\)\\Microsoft\.M365\.Core\.EventLog\.dll""\s+\/\>";
-                string whenNot12 = @"\<Delete Files=""\$\(DISTRIB_PRIVATE_BIN_PATH\)\\Microsoft\.M365\.Core\.Portable\.EventLog\.dll"" \/\>";
-                var inserts12 = new string[] { @"<Delete Files=""$(DISTRIB_PRIVATE_BIN_PATH)\Microsoft.M365.Core.Portable.EventLog.dll"" />" };
-                fileUtils.InsertWhenAndNot(whenNot12, when12, inserts12);
-
-                string when14 = @"\s*\<Reference Include=""\$\(PkgMicrosoft_M365_Core_EventLog\)\\lib\\net462\\Microsoft\.M365\.Core\.EventLog\.dll"" AllowedUnnecessary=";
-                string whenNot14 = @"\<Reference Include=""\$\(PkgMicrosoft_M365_Core_Portable_EventLog\)\\lib\\netstandard2\.0\\Microsoft\.M365\.Core\.Portable\.EventLog\.dll""";
-                var inserts14 = new string[] { @"<Reference Include=""$(PkgMicrosoft_M365_Core_Portable_EventLog)\lib\netstandard2.0\Microsoft.M365.Core.Portable.EventLog.dll"" AllowedUnnecessary=""true"" />" };
-                fileUtils.InsertWhenAndNot(whenNot14, when14, inserts14);
-
-                string when15 = @"\s*\<Reference Include=""\$\(PkgMicrosoft_M365_Core_EventLog\)\\lib\\net462\\Microsoft\.M365\.Core\.EventLog\.dll"" AllowedUnnecessary=";
-                string whenNot15 = @"\<Reference Include=""\$\(PkgSystem_Diagnostics_EventLog\)\\lib\\net461\\System\.Diagnostics\.EventLog\.dll""";
-                var inserts15 = new string[] { @"<Reference Include=""$(PkgSystem_Diagnostics_EventLog)\lib\net461\System.Diagnostics.EventLog.dll"" AllowedUnnecessary=""true"" />" };
-                fileUtils.InsertWhenAndNot(whenNot15, when15, inserts15);
-
-                string when141 = @"\s*\<Reference Include=""\$\(PkgMicrosoft_M365_Core_EventLog\)\\lib\\net462\\Microsoft\.M365\.Core\.EventLog\.dll""\s*\/\>";
-                string whenNot141 = @"Microsoft\.M365\.Core\.Portable\.EventLog";
-                var inserts141 = new string[] { @"<Reference Include=""$(PkgMicrosoft_M365_Core_Portable_EventLog)\lib\netstandard2.0\Microsoft.M365.Core.Portable.EventLog.dll"" />" };
-                fileUtils.InsertWhenAndNotByGroup(when141, whenNot141, when141, inserts141);
-                string whenNot142 = @"System\.Diagnostics\.EventLog";
-                var inserts142 = new string[] { @"<Reference Include=""$(PkgSystem_Diagnostics_EventLog)\lib\net461\System.Diagnostics.EventLog.dll"" />" };
-                fileUtils.InsertWhenAndNotByGroup(when141, whenNot142, when141, inserts142);
-
-                string when143 = @"\s*\<Reference Include=""\$\(PkgMicrosoft_M365_Core_EventLog\)\\lib\\net462\\Microsoft\.M365\.Core\.EventLog\.dll"" \/\>";
-                string whenNot143 = @"Microsoft\.M365\.Core\.Portable\.EventLog";
-                var inserts143 = new string[] { @"<Reference Include=""$(PkgMicrosoft_M365_Core_Portable_EventLog)\lib\netstandard2.0\Microsoft.M365.Core.Portable.EventLog.dll"" />" };
-                fileUtils.InsertWhenAndNotByGroup(when143, whenNot143, when143, inserts143);
-                string whenNot144 = @"System\.Diagnostics\.EventLog";
-                var inserts144 = new string[] { @"<Reference Include=""$(PkgSystem_Diagnostics_EventLog)\lib\net461\System.Diagnostics.EventLog.dll"" />" };
-                fileUtils.InsertWhenAndNotByGroup(when143, whenNot144, when143, inserts144);
-
-                string when16 = @"\s+\<AssemblyRef Include=""\$\(PkgMicrosoft_M365_Core_EventLog\)\\lib\\net462\\Microsoft\.M365\.Core\.EventLog\.dll"" \/\>";
-                string whenNot16 = @"PkgSystem_Diagnostics_EventLog";
-                var inserts16 = new string[] { @"<AssemblyRef Include=""$(PkgSystem_Diagnostics_EventLog)\lib\net461\System.Diagnostics.EventLog.dll"" />" };
-                fileUtils.InsertWhenAndNotByGroup(when16, whenNot16, when16, inserts16);
-
-                string when17 = @"\s+\<AssemblyRef Include=""\$\(PkgMicrosoft_M365_Core_EventLog\)\\lib\\net462\\Microsoft\.M365\.Core\.EventLog\.dll"" \/\>";
-                string whenNot17 = @"PkgMicrosoft_M365_Core_Portable_EventLog";
-                var inserts17 = new string[] { @"<AssemblyRef Include=""$(PkgMicrosoft_M365_Core_Portable_EventLog)\lib\netstandard2.0\Microsoft.M365.Core.Portable.EventLog.dll"" />" };
-                fileUtils.InsertWhenAndNotByGroup(when17, whenNot17, when17, inserts17);
-
-                string when18 = @"\s+\<SandBoxDependencies Include=""\$\(PkgMicrosoft_M365_Core_EventLog\)\\lib\\net462\\Microsoft\.M365\.Core\.EventLog\.dll"" \/\>";
-                string whenNot18 = @"PkgSystem_Diagnostics_EventLog";
-                var inserts18 = new string[] { @"<SandBoxDependencies Include=""$(PkgSystem_Diagnostics_EventLog)\lib\net461\System.Diagnostics.EventLog.dll"" />" };
-                fileUtils.InsertWhenAndNotByGroup(when18, whenNot18, when18, inserts18);
-
-                string when19 = @"\s+\<SandBoxDependencies Include=""\$\(PkgMicrosoft_M365_Core_EventLog\)\\lib\\net462\\Microsoft\.M365\.Core\.EventLog\.dll"" \/\>";
-                string whenNot19 = @"PkgMicrosoft_M365_Core_Portable_EventLog";
-                var inserts19 = new string[] { @"<SandBoxDependencies Include=""$(PkgMicrosoft_M365_Core_Portable_EventLog)\lib\netstandard2.0\Microsoft.M365.Core.Portable.EventLog.dll"" />" };
-                fileUtils.InsertWhenAndNotByGroup(when19, whenNot19, when19, inserts19);
-
-                string when20 = @"\s+\<Reference Include=""Microsoft.M365.Core.EventLog"" AllowedUnnecessary=""true""\>\s*\<HintPath\>\$\(PkgMicrosoft_M365_Core_EventLog\)\\lib\\";
-                string whenNot20 = @"PkgSystem_Diagnostics_EventLog";
-                var inserts20 = new string[] {
-                    @"<Reference Include=""System.Diagnostics.EventLog"" AllowedUnnecessary=""true"">",
-                    @"  <HintPath>$(PkgSystem_Diagnostics_EventLog)\lib\net461\System.Diagnostics.EventLog.dll</HintPath>",
-                    @"</Reference>"
-                };
-                fileUtils.InsertWhenAndNotByGroup(when20, whenNot20, when20, inserts20);
-                string whenNot201 = @"PkgMicrosoft_M365_Core_Portable_EventLog";
-                var inserts201 = new string[] {
-                    @"<Reference Include=""Microsoft.M365.Core.Portable.EventLog"" AllowedUnnecessary=""true"">",
-                    @"  <HintPath>$(PkgMicrosoft_M365_Core_Portable_EventLog)\lib\netstandard2.0\Microsoft.M365.Core.Portable.EventLog.dll</HintPath>",
-                    @"</Reference>"
-                };
-                fileUtils.InsertWhenAndNotByGroup(when20, whenNot201, when20, inserts201);
-
-                string when21 = @"\s+\<Reference Include=""Microsoft.M365.Core.EventLog""\s*\>\s*\<HintPath\>\$\(PkgMicrosoft_M365_Core_EventLog\)\\lib\\";
-                string whenNot21 = @"System\.Diagnostics\.EventLog";
-                var inserts21 = new string[] {
-                    @"<Reference Include=""System.Diagnostics.EventLog"">",
-                    @"  <HintPath>$(PkgSystem_Diagnostics_EventLog)\lib\net461\System.Diagnostics.EventLog.dll</HintPath>",
-                    @"</Reference>"
-                };
-                fileUtils.InsertWhenAndNotByGroup(when21, whenNot21, when21, inserts21);
-                string whenNot211 = @"Microsoft\.M365\.Core\.Portable\.EventLog";
-                var inserts211 = new string[] {
-                    @"<Reference Include=""Microsoft.M365.Core.Portable.EventLog"">",
-                    @"  <HintPath>$(PkgMicrosoft_M365_Core_Portable_EventLog)\lib\netstandard2.0\Microsoft.M365.Core.Portable.EventLog.dll</HintPath>",
-                    @"</Reference>"
-                };
-                fileUtils.InsertWhenAndNotByGroup(when20, whenNot211, when20, inserts211);
-
-                string when2111 = @"\s+\<Reference Include=""Microsoft\.M365\.Core\.EventLog\.dll""\s*\>\s*\<HintPath\>\$\(PkgMicrosoft_M365_Core_EventLog\)\\lib\\";
-                fileUtils.InsertWhenAndNotByGroup(when2111, whenNot21, when2111, inserts21);
-                fileUtils.InsertWhenAndNotByGroup(when2111, whenNot211, when2111, inserts211);
-
-                string when22 = @"\s*\<PowerShellWrapperGenLookupOnly Include=""\$\(PkgMicrosoft_M365_Core_EventLog\)\\lib\\net462\\Microsoft\.M365\.Core\.EventLog\.dll""";
-                string whenNot22 = @"\<PowerShellWrapperGenLookupOnly Include=""\$\(PkgMicrosoft_M365_Core_Portable_EventLog\)\\lib\\netstandard2\.0\\Microsoft\.M365\.Core\.Portable\.EventLog\.dll""";
-                var inserts22 = new string[] { @"<PowerShellWrapperGenLookupOnly Include=""$(PkgMicrosoft_M365_Core_Portable_EventLog)\lib\netstandard2.0\Microsoft.M365.Core.Portable.EventLog.dll"" />" };
-                fileUtils.InsertWhenAndNotByGroup(when22, whenNot22, when22, inserts22);
-                string whenNot221 = @"\<PowerShellWrapperGenLookupOnly Include=""\$\(PkgSystem_Diagnostics_EventLog\)\\lib\\net461\\System\.Diagnostics\.EventLog\.dll""";
-                var inserts221 = new string[] { @"<PowerShellWrapperGenLookupOnly Include=""$(PkgSystem_Diagnostics_EventLog)\lib\net461\System.Diagnostics.EventLog.dll"" />" };
-                fileUtils.InsertWhenAndNotByGroup(when22, whenNot221, when22, inserts221);
-
-                if (
-                 path.Contains("services\\src\\EwsSerializersGeneratorPostProcessing\\EwsSerializersGeneratorPostProcessing.csproj", StringComparison.OrdinalIgnoreCase) ||
-                 path.Contains("sources\\test\\tools\\src\\Titan\\Internal.Exchange.Test.TitanCommon.csproj", StringComparison.OrdinalIgnoreCase)
-               )
-                {
-                    string when13 = @"\s+\<PackageReference Include=""Microsoft\.M365\.Core\.EventLog"" GeneratePathProperty=""true"" \/\>";
-                    string whenNot13 = @"\s+\<PackageReference Include=""Microsoft\.M365\.Core\.Portable\.EventLog"" GeneratePathProperty=""true"" \/\>";
-                    var inserts13 = new string[] {
-                        @"<PackageReference Include=""System.Diagnostics.EventLog"" GeneratePathProperty=""true"" />",
-                        "<PackageReference Include=\"Microsoft.M365.Core.Portable.EventLog\" GeneratePathProperty=\"true\" />"
-                    };
-                    fileUtils.InsertWhenAndNot(whenNot13, when13, inserts13);
-                }
-
                 bool sdk = fileUtils.Content.Contains("Sdk=\"Microsoft.NET.Sdk", StringComparison.OrdinalIgnoreCase);
 
-                if (!sdk)
-                {
-                    fileUtils.InsertWhenAndNotByGroup(matches);
-                }
-                else
-                {
-                    fileUtils.SkipFile = "SDK";
-                }
+                fileUtils.Insert(MatchParam.Load("match/csproj.insert.xml"));
 
-                await OtherCsproj(fileUtils, sdk);
+                fileUtils.Replace(MatchParam.Load("match/csproj.replace.xml"));
 
-                result = await fileUtils.SaveResult();
-                return result;
+                return await fileUtils.SaveResult();
             });
-        }
-
-        private async Task OtherCsproj(FileMatch fileMatch, bool isSDK)
-        {
-            string WhenPerseus = @"\s*\<Import Project=""\$\(BranchTargetsPath\)\\Test\\Perseus\\Perseus\.DataTypes\.targets"" \/\>";
-            string[] PerseusInserts =
-                {
-                    "<Reference Include=\"$(PkgOSS_Build_ExchangeTestStudio)\\ExchangeTestStudio\\Content\\Perseus.DataTypes.dll\" />",
-                    "<Reference Include=\"$(PkgOSS_Build_ExchangeTestStudio)\\ExchangeTestStudio\\Content\\TcUtils.dll\" />"
-                };
-            if (fileMatch.IsMatchAll(WhenPerseus,
-                @"\<Reference Include=""\$\(PkgMicrosoft_M365_Core_EventLog\)\\lib\\",
-                @"\<Reference Include=""\$\(PkgMicrosoft_M365_Core_Portable_EventLog\)\\lib\\")
-                && !isSDK)
-            {
-                string[] when = { @"\s*\<Reference Include=""\$\(PkgMicrosoft_M365_Core_EventLog\)\\lib\\",
-                @"\s*\<Reference Include=""Microsoft\.M365\.Core\.EventLog""\>"};
-                string whenNot = @"Perseus.DataTypes.dll";
-                fileMatch.InsertWhenNot(whenNot, when, PerseusInserts);
-                fileMatch.Replace(WhenPerseus, "");
-            }
-
-            if (fileMatch.Path.Contains("\\sources\\dev\\common\\src\\BinPlaceForPackages", StringComparison.OrdinalIgnoreCase))
-            {
-                string when = @"\s*\<PackageReference Include=""Microsoft\.M365\.Core\.EventLog""";
-                string whenNot = @"\<PackageReference Include=""Microsoft\.M365\.Core\.Portable\.EventLog""";
-                string[] inserts =
-                    {
-                    "<PackageReference Include=\"Microsoft.M365.Core.Portable.EventLog\" GeneratePathProperty=\"true\" />"
-                };
-
-                fileMatch.InsertWhenAndNotByGroup(when, whenNot, when, inserts);
-
-                string when2 = @"\s*\<BinPlaceNetCore Include=""\$\(PkgMicrosoft_M365_Core_EventLog\)\\lib\\";
-                string whenNot2 = @"PkgMicrosoft_M365_Core_Portable_EventLog";
-                string[] inserts2 =
-                    {
-                    "<BinPlaceNetCore Include=\"$(PkgMicrosoft_M365_Core_Portable_EventLog)\\lib\\netstandard2.0\\Microsoft.M365.Core.Portable.EventLog.dll\" />"
-                };
-
-                fileMatch.InsertWhenAndNotByGroup(when2, whenNot2, when2, inserts2);
-            }
-            else if (fileMatch.Path.Contains("Test\\MExAgents\\src\\UnifiedGroupAgent\\UnitTests", StringComparison.OrdinalIgnoreCase))
-            {
-                string when = @"\s*\<PackageReference Include=""Microsoft.NET.Test.Sdk""";
-                string whenNot = @"\<PackageReference Include=""System.Diagnostics.EventLog""";
-                string[] inserts =
-                    {
-                    "<PackageReference Include=\"System.Diagnostics.EventLog\" NoWarn=\"NU1605\" />"
-                };
-                fileMatch.InsertWhenNot(whenNot, when, inserts);
-                fileMatch.Replace(WhenPerseus, "");
-            }
-            else if (fileMatch.Path.Contains("test\\Hygiene\\src\\ThreatIntel\\AirUnitTests", StringComparison.OrdinalIgnoreCase))
-            {
-                string pc = Path.Combine(AppSettings.RootPath, "sources\\test\\hygiene\\src\\threatintel\\airunittests\\teamsmessageentitymodeltests.cs");
-                FileMatch filec = await FileMatch.ReadFileAsync(pc);
-                filec.Replace(@"\s*using Perseus.DataTypes;", "");
-                await filec.SaveResult();
-
-                string when = @"\s*\<Reference Include=""\$\(PkgMicrosoft_M365_Core_EventLog\)\\lib\\";
-                string whenNot = @"Perseus.DataTypes.dll";
-                fileMatch.InsertWhenNot(whenNot, when, PerseusInserts);
-                fileMatch.Replace(WhenPerseus, "");
-            }
-            else if (fileMatch.Path.Contains("dev\\Hygiene\\src\\Webstore\\MSICustomActions\\MSICustomActions.csproj", StringComparison.OrdinalIgnoreCase))
-            {
-                string when = @"\s*""\$\(PkgMicrosoft_M365_Core_DiagnosticsLog\)\\lib\\";
-                string whenNot = @"Microsoft\.M365\.Core\.Portable\.EventLog";
-                string[] inserts =
-                    {
-                    @"""$(PkgSystem_Diagnostics_EventLog)\lib\net461\System.Diagnostics.EventLog.dll"" ^",
-                    @"""$(PkgMicrosoft_M365_Core_Portable_EventLog)\lib\netstandard2.0\Microsoft.M365.Core.Portable.EventLog.dll"" ^"
-                };
-                fileMatch.InsertWhenAndNot(whenNot, when, inserts);
-            }
-            else if (fileMatch.Path.Contains("dev\\Hygiene\\src\\Webstore\\Client\\", StringComparison.OrdinalIgnoreCase))
-            {
-                string when = @"\s*\<PackageReference Include=""System\.Diagnostics\.EventLog"" \/\>";
-                string whenNot = @"Microsoft\.M365\.Core\.Portable\.EventLog";
-                string[] inserts =
-                    {
-                    "<PackageReference Include=\"Microsoft.M365.Core.Portable.EventLog\" />"
-                };
-                fileMatch.InsertWhenNot(whenNot, when, inserts);
-            }
-            else if (fileMatch.Path.Contains("sources\\Test\\Hygiene\\src\\SmartScreen\\SpamEngineExtensions\\FunctionalTests", StringComparison.OrdinalIgnoreCase)
-                || fileMatch.Path.Contains("sources\\Test\\Hygiene\\src\\DataInsights\\Common\\UnitTests", StringComparison.OrdinalIgnoreCase)
-                || fileMatch.Path.Contains("sources\\Test\\EDiscovery\\src\\TaskDistributionSystem", StringComparison.OrdinalIgnoreCase)
-                || fileMatch.Path.Contains("sources\\Test\\Hygiene\\src\\SmartLinks\\UnitTests\\SpamEngineExtensions", StringComparison.OrdinalIgnoreCase)
-                || fileMatch.Path.Contains("sources\\Test\\Hygiene\\src\\MailTagRetrieval\\UnitTests", StringComparison.OrdinalIgnoreCase)
-                || fileMatch.Path.Contains("sources\\Test\\OfficeGraph\\Src\\SecondaryCopyQuotaManagement\\Zerobox", StringComparison.OrdinalIgnoreCase)
-                || fileMatch.Path.Contains("sources\\Test\\Services\\src\\RestUnitTests\\MailboxItemUnitTests", StringComparison.OrdinalIgnoreCase)
-                || fileMatch.Path.Contains("sources\\Test\\Hygiene\\src\\SmartScreen\\SpamEngineExtensions\\Unittests", StringComparison.OrdinalIgnoreCase))
-            {
-                string[] when = { @"\s*\<Reference Include=""\$\(PkgMicrosoft_M365_Core_EventLog\)\\lib\\",
-                @"\s*\<Reference Include=""Microsoft\.M365\.Core\.EventLog""\>"};
-                string whenNot = @"Perseus.DataTypes.dll";
-                string[] inserts =
-                    {
-                    "<Reference Include=\"$(PkgOSS_Build_ExchangeTestStudio)\\ExchangeTestStudio\\Content\\Perseus.DataTypes.dll\" />",
-                    "<Reference Include=\"$(PkgOSS_Build_ExchangeTestStudio)\\ExchangeTestStudio\\Content\\TcUtils.dll\" />"
-                };
-                fileMatch.InsertWhenNot(whenNot, when, inserts);
-                fileMatch.Replace(WhenPerseus, "");
-            }
         }
 
         public void ResolveNoprojFiles()

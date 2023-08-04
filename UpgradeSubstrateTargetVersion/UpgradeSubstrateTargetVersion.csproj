@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="MatchXmlParams.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="Data\csproj">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

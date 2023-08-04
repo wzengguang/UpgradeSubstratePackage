@@ -1,3 +1,38 @@
 ﻿<xml>
 
+  <Case>
+    <When>
+      <Reference Include="$(PkgMicrosoft_M365_Core_EventLog)\lib\net462\Microsoft.M365.Core.EventLog.dll" />
+    </When>
+    <When>
+      <Import Project="$(BranchTargetsPath)\Test\Perseus\Perseus.DataTypes.targets" />
+    </When>
+    <Value>
+      <Reference Include="$(PkgOSS_Build_ExchangeTestStudio)\ExchangeTestStudio\Content\Perseus.DataTypes.dll" />
+      <Reference Include="$(PkgOSS_Build_ExchangeTestStudio)\ExchangeTestStudio\Content\TcUtils.dll" />
+      <Reference Include="$(PkgSystem_Diagnostics_EventLog)\lib\net461\System.Diagnostics.EventLog.dll" />
+      <Reference Include="$(PkgMicrosoft_M365_Core_Portable_EventLog)\lib\netstandard2.0\Microsoft.M365.Core.Portable.EventLog.dll" />
+    </Value>
+  </Case>
+
+  <Case>
+    <When>
+      <Reference Include="Microsoft.M365.Core.EventLog" >
+        <HintPath>$(PkgMicrosoft_M365_Core_EventLog)\lib\net462\Microsoft.M365.Core.EventLog.dll</HintPath>
+      </Reference>
+    </When>
+    <When>
+      <Import Project="$(BranchTargetsPath)\Test\Perseus\Perseus.DataTypes.targets" />
+    </When>
+    <Value>
+      <Reference Include="$(PkgOSS_Build_ExchangeTestStudio)\ExchangeTestStudio\Content\Perseus.DataTypes.dll" />
+      <Reference Include="$(PkgOSS_Build_ExchangeTestStudio)\ExchangeTestStudio\Content\TcUtils.dll" />
+      <Reference Include="System.Diagnostics.EventLog">
+        <HintPath>$(PkgSystem_Diagnostics_EventLog)\lib\net461\System.Diagnostics.EventLog.dll</HintPath>
+      </Reference>
+      <Reference Include="Microsoft.M365.Core.Portable.EventLog">
+        <HintPath>$(PkgMicrosoft_M365_Core_Portable_EventLog)\lib\netstandard2.0\Microsoft.M365.Core.Portable.EventLog.dll</HintPath>
+      </Reference>
+    </Value>
+  </Case>
 </xml>

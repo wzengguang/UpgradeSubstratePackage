@@ -49,21 +49,25 @@
                 .Select(a => $"[E:{a.EventLogCount};P:{a.PortableCount}]" + a.Path);
             File.WriteAllLines(nameof(TaskResults) + 1, taskResult);
 
+            var taskResult1 = TaskResults.Where(a => string.IsNullOrEmpty(a.Skip) && a.PerseusCount > 0 && a.DiagnosticsCount > 0).OrderBy(a => Path.GetExtension(a.Path))
+                .Select(a => $"[E:{a.EventLogCount};P:{a.PortableCount}]" + a.Path);
+            File.WriteAllLines("_Log-HasPerseusAndDiagnostics", taskResult1);
+
             var taskResult2 = TaskResults.Where(a => string.IsNullOrEmpty(a.Skip) && a.EventLogCount > a.PortableCount).OrderBy(a => Path.GetExtension(a.Path))
                 .Select(a => $"[E:{a.EventLogCount};P:{a.PortableCount}]" + a.Path);
-            File.WriteAllLines("LessPortableCount", taskResult2);
+            File.WriteAllLines("_Log-LessPortableCount", taskResult2);
 
             var taskResult3 = TaskResults.Where(a => string.IsNullOrEmpty(a.Skip) && a.EventLogCount < a.PortableCount).OrderBy(a => Path.GetExtension(a.Path))
                 .Select(a => $"[E:{a.EventLogCount};P:{a.PortableCount}]" + a.Path);
-            File.WriteAllLines("MorePortableCount", taskResult3);
+            File.WriteAllLines("_Log-MorePortableCount", taskResult3);
 
             var taskResult4 = TaskResults.Where(a => string.IsNullOrEmpty(a.Skip) && a.EventLogCount > a.DiagnosticsCount).OrderBy(a => Path.GetExtension(a.Path))
                 .Select(a => $"[E:{a.EventLogCount};D:{a.DiagnosticsCount}]" + a.Path);
-            File.WriteAllLines("LessDiagnosticsCount", taskResult4);
+            File.WriteAllLines("_Log-LessDiagnosticsCount", taskResult4);
 
             var taskResult5 = TaskResults.Where(a => string.IsNullOrEmpty(a.Skip) && a.EventLogCount < a.DiagnosticsCount).OrderBy(a => Path.GetExtension(a.Path))
                 .Select(a => $"[E:{a.EventLogCount};D:{a.DiagnosticsCount}]" + a.Path);
-            File.WriteAllLines("MoreDiagnosticsCount", taskResult5);
+            File.WriteAllLines("_Log-MoreDiagnosticsCount", taskResult5);
         }
     }
 }
