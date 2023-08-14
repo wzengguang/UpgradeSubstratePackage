@@ -117,6 +117,11 @@
                         }
                     }
 
+                    if (matchParam.Where == null)
+                    {
+                        matchParam.Where = matchParam.When.FirstOrDefault();
+                    }
+
                     matchParamsList.Add(matchParam);
                 }
             }
@@ -126,8 +131,21 @@
 
         private static string GetRegexValue(XmlNode node, XmlNode item)
         {
-            var noprefixspace = node?.Attributes != null && string.Equals(node.Attributes["NoPrefixSpace"]?.Value, "true", StringComparison.OrdinalIgnoreCase);
-            var nopostfixspace = node?.Attributes != null && string.Equals(node.Attributes["NoPostfixSpace"]?.Value, "true", StringComparison.OrdinalIgnoreCase);
+            bool noprefixspace = false;
+            bool nopostfixspace = false;
+            if (node?.Attributes != null)
+            {
+                if (string.Equals(node.Attributes["Space"]?.Value, "false", StringComparison.OrdinalIgnoreCase))
+                {
+                    noprefixspace = true;
+                    nopostfixspace = true;
+                }
+                else
+                {
+                    noprefixspace = string.Equals(node.Attributes["PrefixSpace"]?.Value, "false", StringComparison.OrdinalIgnoreCase);
+                    nopostfixspace = string.Equals(node.Attributes["PostfixSpace"]?.Value, "false", StringComparison.OrdinalIgnoreCase);
+                }
+            }
 
             string regex = item.OuterXml.ToRegexString(noprefixspace, nopostfixspace);
             return regex;

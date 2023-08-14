@@ -21,5 +21,15 @@ namespace UpgradeSubstrateTargetVersion
             }
             return false;
         }
+
+        public static bool ContainIgnoreCase(this string value, List<String> strings)
+        {
+            return strings.Exists(e => value.Contains(e, StringComparison.OrdinalIgnoreCase));
+        }
+
+        public static bool EqualIgnoreCase(this string value, string other)
+        {
+            return value.Equals(other, StringComparison.OrdinalIgnoreCase);
+        }
     }
 }

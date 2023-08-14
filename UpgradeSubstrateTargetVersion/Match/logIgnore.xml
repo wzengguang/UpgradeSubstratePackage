@@ -1,0 +1,9 @@
+﻿<xml>
+  <Case>
+    <Path>
+      sources\dev\common\nupkg\CommonDataPlatform\Microsoft.Exchange.CommonDataPlatform.nupkg.proj
+      sources\dev\common\nupkg\ObjectStoreClient\Microsoft.Exchange.ObjectStoreClient\Microsoft.Exchange.ObjectStoreClient.nuspec
+      sources\dev\data\nupkg\OdinML.Dependences.Exchange\OdinML.Dependences.Exchange.nuspec
+    </Path>
+  </Case>
+</xml>

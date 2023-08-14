@@ -13,13 +13,13 @@ namespace UpgradeSubstrateTargetVersion
     {
         public string SkipFile { get; set; } = string.Empty;
 
-        private XDocument xDoc;
-
         public int ModifiedCount { get; private set; }
 
         public string Path { get; private set; }
 
         public string Content { private set; get; }
+
+        public bool IsSDKProject { private set; get; }
 
 
         public static async Task<FileMatch> ReadFileAsync(string relativePath, bool isRelativePath = true)
@@ -35,7 +35,7 @@ namespace UpgradeSubstrateTargetVersion
         {
             this.Path = path;
             this.Content = txt;
-            this.xDoc = XDocument.Parse(txt);
+            IsSDKProject = this.Content.Contains("Sdk=\"Microsoft.NET.Sdk", StringComparison.OrdinalIgnoreCase);
         }
 
         public void Replace(string match, string replace)
@@ -122,8 +122,7 @@ namespace UpgradeSubstrateTargetVersion
             {
                 if (PreMatch(matchParam))
                 {
-                    string whereRegex = matchParam.When.First();
-                    Match where = Regex.Match(Content, whereRegex, RegexOptions.IgnoreCase);
+                    Match where = Regex.Match(Content, matchParam.Where, RegexOptions.IgnoreCase);
                     if (where.Success)
                     {
                         var vString = matchParam.value.Count == 0 ? "" : FormateSpaces(matchParam.value, where);
@@ -133,7 +132,7 @@ namespace UpgradeSubstrateTargetVersion
                             return;
                         }
 
-                        string newContent = Regex.Replace(Content, whereRegex, m => vString, RegexOptions.IgnoreCase);
+                        string newContent = Regex.Replace(Content, matchParam.Where, m => vString, RegexOptions.IgnoreCase);
                         if (newContent.Contains(vString))
                         {
                             this.ModifiedCount++;
@@ -157,8 +156,7 @@ namespace UpgradeSubstrateTargetVersion
             if (PreMatch(matchParam))
             {
                 var match = FirstMatch(matchParam.When.ToArray());
-                string whereStr = string.IsNullOrEmpty(matchParam.Where) ? match.Item1 : matchParam.Where;
-                Match where = Regex.Match(Content, whereStr, RegexOptions.IgnoreCase);
+                Match where = Regex.Match(Content, matchParam.Where, RegexOptions.IgnoreCase);
                 if (where.Success)
                 {
                     var vString = FormateSpaces(matchParam.value, where);
@@ -168,7 +166,7 @@ namespace UpgradeSubstrateTargetVersion
                         return;
                     }
 
-                    string newContent = Regex.Replace(Content, whereStr, m => vString + m.Value, RegexOptions.IgnoreCase);
+                    string newContent = Regex.Replace(Content, matchParam.Where, m => vString + m.Value, RegexOptions.IgnoreCase);
                     if (newContent.Contains(vString))
                     {
                         this.ModifiedCount++;

@@ -12,7 +12,7 @@
       <add assembly="Microsoft.M365.Core.EventLog, Version=18.0.0.0, Culture=neutral, PublicKeyToken=5a24b4a52c5686bd" />
     </When>
     <Value>
-      <add assembly="System.Diagnostics.EventLog, Version=18.0.0.0, Culture=neutral, publicKeyToken=5a24b4a52c5686bd" />
+      <add assembly="System.Diagnostics.EventLog, Version=4.0.2.0, Culture=neutral, publicKeyToken=cc7b13ffcd2ddd51" />
     </Value>
   </Case>
   <Case>
@@ -24,7 +24,7 @@
     </When>
     <Value>
       <dependentAssembly>
-        <assemblyIdentity name="System.Diagnostics.EventLog" publicKeyToken="5a24b4a52c5686bd" culture="neutral" />
+        <assemblyIdentity name="System.Diagnostics.EventLog" publicKeyToken="cc7b13ffcd2ddd51" culture="neutral" />
         <bindingRedirect oldVersion="0.0.0.0-4.0.2.0" newVersion="4.0.2.0" />
       </dependentAssembly>
     </Value>

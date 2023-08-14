@@ -1,0 +1,19 @@
+﻿<xml>
+  <Case>
+    <When PostfixSpace="false">
+      <Reference Include="$(PkgMicrosoft_M365_Core_Portable_EventLog)\lib\netstandard2.0\Microsoft.M365.Core.Portable.EventLog.dll" />
+    </When>
+    <Value>
+    </Value>
+  </Case>
+
+  <Case>
+    <When PostfixSpace="false">
+      <Reference Include="Microsoft.M365.Core.Portable.EventLog">
+        <HintPath>$(PkgMicrosoft_M365_Core_Portable_EventLog)\lib\netstandard2.0\Microsoft.M365.Core.Portable.EventLog.dll</HintPath>
+      </Reference>
+    </When>
+    <Value>
+    </Value>
+  </Case>
+</xml>

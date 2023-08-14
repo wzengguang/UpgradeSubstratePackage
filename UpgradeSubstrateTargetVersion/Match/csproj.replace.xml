@@ -1,13 +1,13 @@
 ﻿<xml>
   <!--delete PkgOSS_Build_ExchangeTestStudio-->
   <Case>
-    <When NoPostfixSpace="true" >
+    <When PostfixSpace="false" >
       <Reference Include="$(PkgOSS_Build_ExchangeTestStudio)\ExchangeTestStudio\Content\System.Diagnostics.EventLog.dll" AllowedUnnecessary="true" />
     </When>
-    <When NoPrefixSpace="true" NoPostfixSpace="true">
+    <When PrefixSpace="false" PostfixSpace="false">
       $(PkgSystem_Diagnostics_EventLog)\lib\net461\System.Diagnostics.EventLog.dll
     </When>
-    <When NoPrefixSpace="true" NoPostfixSpace="true">
+    <When PrefixSpace="false" PostfixSpace="false">
       $(PkgMicrosoft_M365_Core_Portable_EventLog)\lib\netstandard2.0\Microsoft.M365.Core.Portable.EventLog.dll
     </When>
     <Value>
@@ -16,19 +16,19 @@
 
   <!--delete Perseus.DataTypes.targets-->
   <Case>
-    <When NoPostfixSpace="true">
+    <When PostfixSpace="false">
       <Import Project="$(BranchTargetsPath)\Test\Perseus\Perseus.DataTypes.targets" />
     </When>
-    <When NoPrefixSpace="true" NoPostfixSpace="true">
+    <When PrefixSpace="false" PostfixSpace="false">
       $(PkgMicrosoft_M365_Core_EventLog)\lib\net462\Microsoft.M365.Core.EventLog.dll
     </When>
-    <When NoPrefixSpace="true" NoPostfixSpace="true">
+    <When PrefixSpace="false" PostfixSpace="false">
       $(PkgMicrosoft_M365_Core_Portable_EventLog)\lib\netstandard2.0\Microsoft.M365.Core.Portable.EventLog.dll
     </When>
-    <!--<When NoPrefixSpace="true" NoPostfixSpace="true">
+    <!--<When PrefixSpace="true" PostfixSpace="true">
       <Reference Include="$(PkgOSS_Build_ExchangeTestStudio)\ExchangeTestStudio\Content\TcUtils.dll" />
     </When>
-    <When NoPrefixSpace="true" NoPostfixSpace="true">
+    <When PrefixSpace="true" PostfixSpace="true">
       <Reference Include="$(PkgOSS_Build_ExchangeTestStudio)\ExchangeTestStudio\Content\Perseus.DataTypes.dll" />
     </When>-->
     <Value>
@@ -37,7 +37,7 @@
 
   <!--delete dulplate-->
   <Case>
-    <When NoPostfixSpace="true">
+    <When PostfixSpace="false">
       <Reference Include="$(PkgSystem_Diagnostics_EventLog)\lib\net461\System.Diagnostics.EventLog.dll" />
       <Reference Include="System.Diagnostics.EventLog">
         <HintPath>$(PkgSystem_Diagnostics_EventLog)\lib\net461\System.Diagnostics.EventLog.dll</HintPath>
@@ -47,7 +47,7 @@
     </Value>
   </Case>
   <Case>
-    <When NoPostfixSpace="true">
+    <When PostfixSpace="false">
       <Reference Include="$(PkgMicrosoft_M365_Core_Portable_EventLog)\lib\netstandard2.0\Microsoft.M365.Core.Portable.EventLog.dll" />
       <Reference Include="Microsoft.M365.Core.Portable.EventLog">
         <HintPath>$(PkgMicrosoft_M365_Core_Portable_EventLog)\lib\netstandard2.0\Microsoft.M365.Core.Portable.EventLog.dll</HintPath>

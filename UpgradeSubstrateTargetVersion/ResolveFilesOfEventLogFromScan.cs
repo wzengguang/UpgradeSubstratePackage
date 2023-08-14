@@ -104,96 +104,37 @@ namespace UpgradeSubstrateTargetVersion
 
         public void ResolveCsprojFiles()
         {
+            List<string> exclude = MatchParam.Load("match/csproj.exclude.xml").FirstOrDefault().Path;
             List<MatchUtil> matches = MatchUtil.GetMatchs("Data/csproj");
-            List<string> exclude = new() {
-                //"Dev\\Clients\\src\\common",
-                //"dev\\services\\src\\EwsSerializersGeneratorPostProcessing",
-                //"dev\\common\\src\\BinPlaceForPackages\\BinPlaceForPackages",
-                //"dev\\admin\\src\\Reports\\Server\\Extensions",
-                //"dev\\admin\\src\\ecp\\ControlPanel",
-                //"Broker\\Service",
-                //"dev\\admin\\src\\ReportingWebService\\Service",
-                //"Dev\\Cafe\\src\\FootPrint",
-                //"Dev\\Common\\src\\DnsOpticsCollector",
-                //"Dev\\Search\\Src\\Service",
-                //"dev\\Networking\\src\\NetMan\\NetworkManager",
-                //"Dev\\Filtering\\src\\platform\\Management\\ADConnector\\Impl",
-                //"src\\TrainingRecord\\TrainingRecordManager",
-                //"src\\CacheConvergence\\Diagnostics",
-                //"Dev\\Networking\\src\\ReTiNA\\BranchConnectOpticsLogger",
-                //"Dev\\Data\\src\\ThrottlingService\\Service",
-                //"Dev\\Networking\\src\\PLAT\\Microsoft.Office.Datacenter.Connectivity.PLAT.Shared",
-                //"Dev\\Cafe\\src\\AnycastDnsOnCafe\\DnsHelperService",
-                //"Dev\\Services\\src\\OAB",
-                //"Dev\\MailboxAssistants\\src\\Service",
-                //"Dev\\MailboxAssistants\\src\\AssistantInfra\\src",
-                //"Dev\\MapiMT\\src\\RpcHttpModules",
-                //"Dev\\Directory\\src\\CacheService",
-                //"Dev\\RcaService\\src\\Service",
-                //"Test\\Performance\\SRC\\EDS",
-                //"Dev\\Networking\\src\\ReTiNA\\SinkPlugin",
-                //"Test\\Transport\\src\\PoisonMsg\\NonBVT\\Component\\Tests",
-                //"Dev\\Clients\\src\\security",
-                //"Dev\\Cafe\\src\\Diagnostics",
-                //"Test\\Transport\\src\\smtp\\ZeroBox",
-                //"test\\tools\\src\\EdgeManagement2",
-                //"Dev\\Networking\\src\\PLAT\\Microsoft.Office.Datacenter.Connectivity.PLAT.PLATClient",
-                //"Dev\\SharedCache\\src\\Caches",
-                //"Dev\\Networking\\src\\PLAT\\Microsoft.Office.Datacenter.Connectivity.PLAT.PLATServer",
-                //"Test\\Transport\\src\\transport\\ZeroBox",
-                //"Test\\Tools\\src\\TenantMonitoring",
-                //"Dev\\Networking\\src\\ReTiNA\\LensHostService",
-                //"Dev\\SharedCache\\src\\Server",
-                //"Dev\\MessageSecurity\\src\\Service",
-                //"Dev\\Directory\\src\\TopologyService\\Service",
-                //"Dev\\Cafe\\src\\SmokeTestHeaderModule",
-                //"dev\\cafe\\src\\RoutingService\\Server",
-                //"Test\\ExpoFramework\\src\\storage\\NonBVT",
-                //"Test\\MailboxTransport\\src\\Categorizer\\Extensibility\\Agents",
-                //"Dev\\Configuration\\src\\CertificateAuthentication",
-                //"Dev\\Configuration\\src\\RemotePowershellBackendCmdletProxy",
-                //"Dev\\Configuration\\src\\DiagnosticsModules",
-                //"Dev\\Configuration\\src\\FailFast",
-                //"dev\\cafe\\src\\HttpProxy",
-                //"Test\\Transport\\src\\transport\\SafetyNet\\Component",
-                //"dev\\clients\\src\\Owa2\\Server",
-                //"Test\\Tools\\src\\EdgeAutoInfra",
-                //"Test\\Transport\\src\\TransportSmoke",
-                //"Test\\Filtering\\src\\platform\\AutomatedTests\\E15Automation\\Reporting",
-                //"Test\\Infoworker\\src\\Shared\\Common\\Management",
-                //"Dev\\Clients\\src\\owa\\bin",
-                //"Dev\\E4E\\src\\Server",
-                //"Test\\BCM\\src\\inboxrule\\NonBVT",
-                //"Test\\Search\\Src\\Common",
-                //"Test\\Transport\\src\\BackPressure\\Component",
-                //"Test\\Directory\\src\\TopologyService\\ZeroBox",
-                //"Test\\Transport\\src\\Storage\\ZeroBox",
-                //"test\\infoworker\\src\\Shared\\ConsolidatedBinary",
-                //"test\\Search\\src\\BigFunnel",
-                //"test\\Search\\src\\Core",
-                //"test\\infoworker\\src\\Shared\\Components\\ELC",
-                //"test\\infoworker\\src\\NonBVT\\OOF",
-                //"test\\infoworker\\src\\NonBVT\\Availability",
-                //"sources\\Test\\Transport\\src\\smtp\\SmtpBlobs",
-                //"sources\\Dev\\Data\\src\\dsapi\\Api",
-                "sources\\Test\\Management\\src\\Management\\ProvisioningSOPsTests"
-            };
+            List<MatchParam> inserts = MatchParam.Load("match/csproj.insert.xml");
+            List<MatchParam> replace = MatchParam.Load("match/csproj.replace.xml");
+            List<MatchParam> excludeRmoves = MatchParam.Load("match/csproj.exclude.remove.xml");
 
             this.ResolveFilesTask(scan.CsprojFiles, async (path) =>
             {
-                if (exclude.Exists(e => path.Contains(e, StringComparison.OrdinalIgnoreCase)))
+                //if (!path.Contains("Internal.Exchange.Management.ForwardSync.Service.UnitTests.csproj"))
+                //{
+                //    return null;
+                //}
+
+                FileMatch fileMatch = await FileMatch.ReadFileAsync(path, false);
+                if (fileMatch.IsSDKProject)
                 {
                     return null;
                 }
 
-                FileMatch fileUtils = await FileMatch.ReadFileAsync(path, false);
-                bool sdk = fileUtils.Content.Contains("Sdk=\"Microsoft.NET.Sdk", StringComparison.OrdinalIgnoreCase);
+                if (path.ContainIgnoreCase(exclude))
+                {
+                    fileMatch.SkipFile = "Portable";
+                    fileMatch.Replace(excludeRmoves);
+                }
+                else
+                {
+                    fileMatch.Insert(inserts);
+                    fileMatch.Replace(replace);
+                }
 
-                fileUtils.Insert(MatchParam.Load("match/csproj.insert.xml"));
-
-                fileUtils.Replace(MatchParam.Load("match/csproj.replace.xml"));
-
-                return await fileUtils.SaveResult();
+                return await fileMatch.SaveResult();
             });
         }
 

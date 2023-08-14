@@ -33,10 +33,10 @@
       </File>
     </When>
     <Value>
-      <File Id="EventLog_41e8ce95ac304b9db1a9b0ec622e7385" Source="$(var.PkgSystem_Diagnostics_EventLog)\lib\net461\System.Diagnostics.EventLog.dll" >
+      <File Id="EventLog_41e8ce95ac304b9db1a9b0ec622e7385" Name="System.Diagnostics.EventLog.dll" Source="$(var.PkgSystem_Diagnostics_EventLog)\lib\net461\System.Diagnostics.EventLog.dll" >
         <CopyFile Id="EventLog_41e8ce95ac304b9db1a9b0ec622e7385" DestinationName="System.Diagnostics.EventLog.dll" DestinationDirectory="Exchange_Test_MapiMT_VariantConfigurationPerfTest" />
       </File>
-      <File Id="EventLog_d599159400834d5babf616b5b90662b4" Source="$(var.PkgMicrosoft_M365_Core_Portable_EventLog)\lib\netstandard2.0\Microsoft.M365.Core.Portable.EventLog.dll" >
+      <File Id="EventLog_d599159400834d5babf616b5b90662b4" Name="Microsoft.M365.Core.Portable.EventLog.dll" Source="$(var.PkgMicrosoft_M365_Core_Portable_EventLog)\lib\netstandard2.0\Microsoft.M365.Core.Portable.EventLog.dll" >
         <CopyFile Id="EventLog_d599159400834d5babf616b5b90662b4" DestinationName="Microsoft.M365.Core.Portable.EventLog.dll" DestinationDirectory="Exchange_Test_MapiMT_VariantConfigurationPerfTest" />
       </File>
     </Value>
